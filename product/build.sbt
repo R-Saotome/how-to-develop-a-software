@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.200" ,
   evolutions,
   jdbc,
+  "org.playframework.anorm" %% "anorm" % "2.6.7",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 )
 // Adds additional packages into Twirl
