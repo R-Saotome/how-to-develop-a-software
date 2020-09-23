@@ -1,17 +1,20 @@
 package controllers
 
 import javax.inject.{Inject, Singleton}
-import models.Company
+import models.{Company, CompanyRepository}
 import play.api.libs.json.Json
 import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerComponents, Request}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class CompaniesController @Inject() (cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
+class CompaniesController @Inject() (cp: CompanyRepository, cc: MessagesControllerComponents)(implicit
+ec: ExecutionContext)
+extends MessagesAbstractController(cc) {
   def get() = Action.async { implicit request: Request[AnyContent] =>
     Future {
-      Ok(Json.toJson("getCompanies called"))
+      val results = cp.find
+      Ok(Json.toJson(results))
     }(ec)
   }
 

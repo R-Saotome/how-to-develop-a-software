@@ -8,15 +8,18 @@ object Company {
 
 case class Company(id: Option[Long] = None,
                    name: String,
-                   address: String = "",
-                   tel: String = "",
-                   fax: String = "",
-                   email: String = "",
-                   url: String = "") {
+                   field: Option[String],
+                   address: Option[String],
+                   tel: Option[String],
+                   fax: Option[String],
+                   email: Option[String],
+                   url: Option[String],
+                   correspondence: Option[User]) {
 
   def add = {}
 
   def update = {}
 
   def remove = {}
+
 }
