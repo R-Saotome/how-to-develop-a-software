@@ -4,12 +4,15 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-
 GET     /company                    controllers.CompaniesController.get
 POST    /company                    controllers.CompaniesController.add
 PUT     /company                    controllers.CompaniesController.update
 DELETE  /company                    controllers.CompaniesController.remove
+
+GET     /person                     controllers.PersonsController.get
+POST    /person                     controllers.PersonsController.add
+PUT     /person                     controllers.PersonsController.update
+DELETE  /person                     controllers.PersonsController.remove
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
