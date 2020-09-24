@@ -109,6 +109,7 @@ CREATE TABLE user_account (
  password VARCHAR(255)
 );
 INSERT INTO user_account values (1, 'password');
+INSERT INTO user_account values (2, 'password');
 
 
 -- Checbox-typed field
@@ -171,6 +172,7 @@ CREATE TABLE user (
  FOREIGN KEY (account_id) REFERENCES user_account (id)
 );
 INSERT INTO user values (1, '山田', '太郎', '営業部', '主任', '00-0000-0000');
+INSERT INTO user values (2, '田中', '勇気', '営業部', '主任', '00-0000-0000');
 
 -- Company
 CREATE TABLE company (
@@ -280,6 +282,7 @@ CREATE TABLE schedule (
 );
 INSERT INTO schedule values (1, TRUE, '2020-09-29 00:00:00', '2020-09-30 00:00:00', '休日', 'test', 1, 1, 1);
 INSERT INTO schedule values (2, TRUE, '2020-09-29 00:00:00', '2020-09-30 00:00:00', '休日', 'test', null, null, null);
+INSERT INTO schedule values (3, TRUE, '2020-09-29 00:00:00', '2020-09-30 00:00:00', '休日', 'test', null, null, null);
 
 -- Assigned schedule member
 CREATE TABLE schedule_member (
@@ -291,6 +294,10 @@ CREATE TABLE schedule_member (
  FOREIGN KEY (schedule_id) REFERENCES schedule (id),
  FOREIGN KEY (account_id) REFERENCES user (account_id)
 );
+INSERT INTO schedule_member values (1, 1);
+INSERT INTO schedule_member values (1, 2);
+INSERT INTO schedule_member values (2, 1);
+
 
 -- Custom schedule sheet
 CREATE TABLE schedule_sheet (
