@@ -6,7 +6,7 @@ import anorm._
 import javax.inject.{Inject, Singleton}
 import play.api.db.Database
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 @Singleton
 class PersonRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {

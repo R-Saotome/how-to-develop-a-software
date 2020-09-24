@@ -1,6 +1,6 @@
 package models
 
-import anorm.{ ~, RowParser}
+import anorm.{~, RowParser}
 import anorm.SqlParser._
 
 import play.api.libs.json.{Format, Json}
