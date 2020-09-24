@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.200" ,
   evolutions,
   jdbc,
+  "com.typesafe.play" %% "play-json-joda" % "2.8.1",
   "org.playframework.anorm" %% "anorm" % "2.6.7",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 )
