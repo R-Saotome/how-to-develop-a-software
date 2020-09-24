@@ -11,20 +11,16 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class ReportRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
 
-  val parser: RowParser[Option[Report]] =
+  val parser: RowParser[Report] =
     get[Option[Long]]("report.id") ~
-      get[Option[DateTime]]("report.date") ~
+      get[DateTime]("report.date") ~
       get[Option[String]]("report.note") ~
       SimpleCompany.companyParser ~
       SimplePerson.personParser ~
       SimpleOpportunity.opportunityParser ~
       SimpleUser.userParser map {
-      case id ~ date ~ note ~ company ~ person ~ opportunity ~ reportUser => {
-        date match {
-          case Some(x) => Some(Report(id, x, note, company, person, opportunity, reportUser))
-          case _ => None
-        }
-      }
+      case id ~ date ~ note ~ company ~ person ~ opportunity ~ reportUser =>
+        Report(id, date, note, company, person, opportunity, reportUser)
     }
 
   def find() = {

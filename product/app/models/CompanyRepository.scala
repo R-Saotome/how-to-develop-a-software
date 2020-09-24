@@ -12,9 +12,9 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class CompanyRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
 
-  val parser : RowParser[Option[Company]] =
+  val parser : RowParser[Company] =
       get[Option[Long]]("company.id") ~
-        get[Option[String]]("company.name") ~
+        get[String]("company.name") ~
         get[Option[String]]("company.field") ~
         get[Option[String]]("company.address") ~
         get[Option[String]]("company.tel") ~
@@ -22,13 +22,8 @@ class CompanyRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
         get[Option[String]]("company.email") ~
         get[Option[String]]("company.url") ~
         SimpleUser.userParser map {
-        case id ~ name ~ field ~ address ~ tel ~ fax ~ email ~ url ~ correspondence => {
-          name match {
-            case Some(x) => Some(Company(id, x, field,
-              address, tel, fax, email, url, correspondence))
-            case _ => None
-          }
-        }
+        case id ~ name ~ field ~ address ~ tel ~ fax ~ email ~ url ~ correspondence => Company(id, name, field,
+              address, tel, fax, email, url, correspondence)
       }
 
   def find() = {

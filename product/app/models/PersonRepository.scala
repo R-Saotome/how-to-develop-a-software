@@ -11,27 +11,24 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class PersonRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
 
-  val parser: RowParser[Option[Person]] =
+  val parser: RowParser[Person] =
     get[Option[Long]]("id") ~
-      get[Option[String]]("person.first_name") ~
-      get[Option[String]]("person.last_name") ~
+      get[String]("person.first_name") ~
+      get[String]("person.last_name") ~
       get[Option[String]]("person.department") ~
       get[Option[String]]("person.position") ~
       get[Option[String]]("person.tel") ~
       get[Option[String]]("person.email") ~
       SimpleCompany.companyParser ~
       SimpleUser.userParser map {
-      case id ~ firstName ~ lastName ~ department ~ position ~ tel ~ email ~ company ~ correspondence => {
-        firstName -> lastName match {
-          case Some(x) -> Some(y) => Some(Person(id, x, y,
-            department, position, tel, email, company, correspondence))
-          case _ -> _ => None
-        }
-      }
+      case id ~ firstName ~ lastName ~ department ~ position ~ tel ~ email ~ company ~ correspondence =>
+        Person(id, firstName, lastName, department, position, tel, email, company, correspondence)
     }
+
   def find() = {
     db.withConnection { implicit conn =>
-      SQL("""
+      SQL(
+        """
       SELECT *
        FROM person AS p
        LEFT JOIN user AS u ON p.correspondence_id = u.account_id
