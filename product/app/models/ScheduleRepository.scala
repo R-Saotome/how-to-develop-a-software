@@ -25,11 +25,11 @@ class ScheduleRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
         (Schedule(id, start, end, title, note, company, person, opportunity, Nil), member)
     }
 
-  def find () = {
+  def find() = {
     db.withConnection {
-    implicit conn =>
-    SQL (
-    """
+      implicit conn =>
+        SQL(
+          """
   SELECT *
     FROM schedule s
     LEFT JOIN company c ON s.company_id = c.id
@@ -38,11 +38,11 @@ class ScheduleRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
     LEFT JOIN schedule_member sm ON s.id = sm.schedule_id
     LEFT JOIN user u ON sm.account_id = u.account_id
   """
-    ).as (parser.*)
-      .groupBy (_._1)
-      .transform ((schedule, list) => list.map (_._2).flatten )
-      .toList
-      .map { case (schedule,list) => schedule.copy(members = list)}
+        ).as(parser.*)
+          .groupBy(_._1)
+          .transform((_, list) => list.map(_._2).flatten)
+          .toList
+          .map { case (schedule, list) => schedule.copy(members = list) }
     }
   }
 }

@@ -1,6 +1,5 @@
 package models
 
-import anorm.Macro.ColumnNaming
 import anorm.SqlParser._
 import anorm._
 import javax.inject.{Inject, Singleton}

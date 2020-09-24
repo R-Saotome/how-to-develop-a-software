@@ -19,9 +19,9 @@ object SimpleProgress {
 
 }
 
-case class Progress(id: Option[Long]=None,
-                   orderNumber: Int,
-                   name: String) {}
+case class Progress(id: Option[Long] = None,
+                    orderNumber: Int,
+                    name: String) {}
 
-case class SimpleProgress(id: Option[Long]=None,
-                         name: String)
+case class SimpleProgress(id: Option[Long] = None,
+                          name: String)

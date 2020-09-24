@@ -43,5 +43,5 @@ case class Person(id: Option[Long] = None,
 }
 
 case class SimplePerson(id: Option[Long] = None,
-                       firstName: String,
-                       lastName: String)
+                        firstName: String,
+                        lastName: String)

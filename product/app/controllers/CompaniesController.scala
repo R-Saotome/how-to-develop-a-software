@@ -8,12 +8,12 @@ import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerC
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class CompaniesController @Inject() (cp: CompanyRepository, cc: MessagesControllerComponents)(implicit
-ec: ExecutionContext)
-extends MessagesAbstractController(cc) {
+class CompaniesController @Inject()(cr: CompanyRepository, cc: MessagesControllerComponents)(implicit
+                                                                                             ec: ExecutionContext)
+  extends MessagesAbstractController(cc) {
   def get() = Action.async { implicit request: Request[AnyContent] =>
     Future {
-      val results = cp.find
+      val results = cr.find
       Ok(Json.toJson(results))
     }(ec)
   }

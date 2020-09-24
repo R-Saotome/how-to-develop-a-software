@@ -10,15 +10,15 @@ object Schedule {
   implicit val format: Format[Schedule] = Json.format[Schedule]
 }
 
-case class Schedule(id:Option[Long]=None,
-                   startDate: DateTime,
-                   endDate: DateTime,
-                   title: String,
-                   note: Option[String],
-                   company: Option[SimpleCompany],
-                   person: Option[SimplePerson],
-                   opportunity: Option[SimpleOpportunity],
-                   members: List[SimpleUser]) {
+case class Schedule(id: Option[Long] = None,
+                    startDate: DateTime,
+                    endDate: DateTime,
+                    title: String,
+                    note: Option[String],
+                    company: Option[SimpleCompany],
+                    person: Option[SimplePerson],
+                    opportunity: Option[SimpleOpportunity],
+                    members: List[SimpleUser]) {
   def add = {}
 
   def update = {}

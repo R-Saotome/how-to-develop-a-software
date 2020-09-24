@@ -7,8 +7,8 @@ import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerC
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PersonsController @Inject() (pr: PersonRepository, cc: MessagesControllerComponents)(implicit
-                                                                                            ec: ExecutionContext)
+class PersonsController @Inject()(pr: PersonRepository, cc: MessagesControllerComponents)(implicit
+                                                                                          ec: ExecutionContext)
   extends MessagesAbstractController(cc) {
   def get() = Action.async { implicit request: Request[AnyContent] =>
     Future {
