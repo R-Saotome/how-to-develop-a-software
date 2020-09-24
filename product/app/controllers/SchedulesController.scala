@@ -14,7 +14,7 @@ class SchedulesController @Inject()(sr: ScheduleRepository, cc: MessagesControll
   def get() = Action.async { implicit request: Request[AnyContent] =>
     Future {
       val results = sr.find
-      Ok(Json.toJson(results))
+      Ok(Json.obj("data" -> Json.toJson(results)))
     }(ec)
   }
 

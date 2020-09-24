@@ -14,7 +14,7 @@ class CompaniesController @Inject()(cr: CompanyRepository, cc: MessagesControlle
   def get() = Action.async { implicit request: Request[AnyContent] =>
     Future {
       val results = cr.find
-      Ok(Json.toJson(results))
+      Ok(Json.obj("data" -> Json.toJson(results)))
     }(ec)
   }
 

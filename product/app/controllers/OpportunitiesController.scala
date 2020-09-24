@@ -13,8 +13,7 @@ class OpportunitiesController @Inject()(or: OpportunityRepository, cc: MessagesC
   def get() = Action.async { implicit request: Request[AnyContent] =>
     Future {
       val results = or.find
-      Ok(Json.toJson(results))
-
+      Ok(Json.obj("data" -> Json.toJson(results)))
     }(ec)
   }
 

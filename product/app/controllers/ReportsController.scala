@@ -13,8 +13,7 @@ class ReportsController @Inject()(rr: ReportRepository, cc: MessagesControllerCo
   def get() = Action.async { implicit request: Request[AnyContent] =>
     Future {
       val results = rr.find
-      Ok(Json.toJson(results))
-
+      Ok(Json.obj("data" -> Json.toJson(results)))
     }(ec)
   }
 
