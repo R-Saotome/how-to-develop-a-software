@@ -15,7 +15,7 @@ class OpportunityRepository @Inject()(db: Database)(implicit ec: ExecutionContex
     get[Option[Long]]("id") ~
       get[String]("opportunity.name") ~
       get[Option[Int]]("opportunity.amount") ~
-      SimpleProgress.simpleProgressParser ~
+      SimpleProgress.progressParser ~
       SimpleCompany.companyParser ~
       SimplePerson.personParser ~
       SimpleUser.userParser map {
