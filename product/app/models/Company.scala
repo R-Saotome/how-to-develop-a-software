@@ -14,7 +14,7 @@ case class Company(id: Option[Long] = None,
                    fax: Option[String],
                    email: Option[String],
                    url: Option[String],
-                   correspondence: Option[User]) {
+                   correspondence: Option[SimpleUser]) {
 
   def add = {}
 
