@@ -6,11 +6,12 @@ import play.api.libs.json.JsonNaming.SnakeCase
 import play.api.libs.json.{Format, Json, JsonConfiguration}
 
 object Progress {
-//  implicit val config = JsonConfiguration(SnakeCase)
+  implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[Progress] = Json.format[Progress]
 }
 
 object SimpleProgress {
+  implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[SimpleProgress] = Json.format[SimpleProgress]
   implicit val progressParser: RowParser[SimpleProgress] =
     get[Option[Long]]("progress.id") ~

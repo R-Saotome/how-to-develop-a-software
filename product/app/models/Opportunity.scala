@@ -1,14 +1,17 @@
 package models
 
-import anorm.{~, RowParser}
+import anorm.{RowParser, ~}
 import anorm.SqlParser._
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.JsonNaming.SnakeCase
+import play.api.libs.json.{Format, Json, JsonConfiguration}
 
 object Opportunity {
+  implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[Opportunity] = Json.format[Opportunity]
 }
 
 object SimpleOpportunity {
+  implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[SimpleOpportunity] = Json.format[SimpleOpportunity]
 
   implicit val opportunityParser: RowParser[Option[SimpleOpportunity]] =

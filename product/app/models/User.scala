@@ -3,13 +3,16 @@ package models
 import anorm._
 import anorm.RowParser
 import anorm.SqlParser._
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.JsonNaming.SnakeCase
+import play.api.libs.json.{Format, Json, JsonConfiguration}
 
 object User {
+  implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[User] = Json.format[User]
 }
 
 object SimpleUser {
+  implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[SimpleUser] = Json.format[SimpleUser]
   implicit val userParser: RowParser[Option[SimpleUser]] =
     get[Option[Long]]("user.account_id") ~
