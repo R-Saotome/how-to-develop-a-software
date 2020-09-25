@@ -1,11 +1,12 @@
 package models
 
-import anorm.{~, RowParser}
+import anorm.{RowParser, ~}
 import anorm.SqlParser._
-
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.JsonNaming.SnakeCase
+import play.api.libs.json.{Format, Json, JsonConfiguration}
 
 object Progress {
+//  implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[Progress] = Json.format[Progress]
 }
 
