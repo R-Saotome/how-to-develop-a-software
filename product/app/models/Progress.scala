@@ -23,7 +23,14 @@ object SimpleProgress {
 
 case class Progress(id: Option[Long] = None,
                     orderNumber: Int,
-                    name: String) {}
+                    name: String) {
+  def save(repository:ProgressRepository):Option[Long] = {
+    repository.add(this)
+  }
+
+  def remove = {}
+
+}
 
 case class SimpleProgress(id: Option[Long] = None,
                           name: String)

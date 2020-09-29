@@ -28,4 +28,15 @@ class ProgressRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
       ).as(parser.*)
     }
   }
+  def add(progress: Progress): Option[Long] = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections occurs at "${progress.name}"
+      SQL(
+        s"""
+      INSERT INTO progress
+        VALUES ((SELECT COUNT(*) FROM progress)+1, ${progress.orderNumber}, '${progress.name}')
+      """
+      ).executeInsert()
+    }
+  }
 }
