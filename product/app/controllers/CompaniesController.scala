@@ -1,7 +1,7 @@
 package controllers
 
 import javax.inject.{Inject, Singleton}
-import models.{Company, CompanyRepository}
+import models.CompanyRepository
 import play.api.libs.json.Json
 import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerComponents, Request}
 
