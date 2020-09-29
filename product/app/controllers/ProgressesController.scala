@@ -25,7 +25,7 @@ class ProgressesController @Inject()(pr: ProgressRepository, cc: MessagesControl
         errors => BadRequest(JsError.toJson(errors)),
         progress => {
           val generatedId: Option[Long] = progress.save(pr)
-          Ok(Json.obj("data" -> Json.toJson(progress.copy(id = generatedId))))
+          Created(Json.obj("data" -> Json.toJson(progress.copy(id = generatedId))))
         }
       )
     }(ec)
