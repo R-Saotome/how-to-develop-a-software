@@ -31,14 +31,14 @@ class ProgressesController @Inject()(pr: ProgressRepository, cc: MessagesControl
     }(ec)
   }
 
-  def update() = Action.async(parse.json) { implicit request =>
+  def update(updateId: Long) = Action.async(parse.json) { implicit request =>
     Future {
       val progressResult = request.body.validate[Progress]
       progressResult.fold(
         errors => BadRequest(JsError.toJson(errors)),
         progress => {
-          progress.edit(pr)
-          Ok
+          progress.copy(id = Some(updateId)).edit(pr)
+          NoContent
         }
       )
     }(ec)
