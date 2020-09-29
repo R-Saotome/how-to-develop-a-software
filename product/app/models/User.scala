@@ -1,8 +1,7 @@
 package models
 
-import anorm._
-import anorm.RowParser
 import anorm.SqlParser._
+import anorm.{RowParser, _}
 import play.api.libs.json.JsonNaming.SnakeCase
 import play.api.libs.json.{Format, Json, JsonConfiguration}
 

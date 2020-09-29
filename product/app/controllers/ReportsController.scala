@@ -1,7 +1,7 @@
 package controllers
 
 import javax.inject.Inject
-import models.{OpportunityRepository, ReportRepository}
+import models.ReportRepository
 import play.api.libs.json.Json
 import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerComponents, Request}
 

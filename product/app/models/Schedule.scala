@@ -2,7 +2,7 @@ package models
 
 import org.joda.time.DateTime
 import play.api.libs.json.JsonNaming.SnakeCase
-import play.api.libs.json.{Format, JodaReads, JodaWrites, Json, JsonConfiguration}
+import play.api.libs.json._
 
 object Schedule {
   implicit val config = JsonConfiguration(SnakeCase)

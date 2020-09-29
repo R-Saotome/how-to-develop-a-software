@@ -28,6 +28,7 @@ class ProgressRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
       ).as(parser.*)
     }
   }
+
   def add(progress: Progress): Option[Long] = {
     db.withConnection { implicit conn =>
       // FIXME SQL Injections occurs at "${progress.name}"
@@ -39,6 +40,7 @@ class ProgressRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
       ).executeInsert()
     }
   }
+
   def update(progress: Progress) = {
     db.withConnection { implicit conn =>
       // FIXME SQL Injections occurs at "${progress.name}"
@@ -59,11 +61,11 @@ class ProgressRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
   def remove(progressId: Long): Unit = {
     db.withConnection { implicit conn =>
       SQL(
-          f"""
+        f"""
       DELETE FROM progress
         where id = ${progressId}
       """
-        ).executeUpdate()
+      ).executeUpdate()
     }
   }
 }

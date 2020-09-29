@@ -1,7 +1,7 @@
 package models
 
-import anorm.{RowParser, ~}
 import anorm.SqlParser._
+import anorm.{RowParser, ~}
 import play.api.libs.json.JsonNaming.SnakeCase
 import play.api.libs.json.{Format, Json, JsonConfiguration}
 
@@ -24,11 +24,11 @@ object SimpleProgress {
 case class Progress(id: Option[Long] = None,
                     orderNumber: Int,
                     name: String) {
-  def save(repository:ProgressRepository):Option[Long] = {
-      repository.add(this)
+  def save(repository: ProgressRepository): Option[Long] = {
+    repository.add(this)
   }
 
-  def edit(repository:ProgressRepository):Unit = {
+  def edit(repository: ProgressRepository): Unit = {
     this.id match {
       case Some(_) => {
         repository.update(this)
