@@ -39,4 +39,20 @@ class ProgressRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
       ).executeInsert()
     }
   }
+  def update(progress: Progress) = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections occurs at "${progress.name}"
+      progress.id match {
+        case Some(x) => SQL(
+          f"""
+      UPDATE progress
+        SET order_number = ${progress.orderNumber}, name = '${progress.name}'
+        where id = ${progress.id.getOrElse(-1)}
+      """
+        ).executeUpdate()
+
+        case None => Error
+      }
+    }
+  }
 }

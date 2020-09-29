@@ -31,9 +31,16 @@ class ProgressesController @Inject()(pr: ProgressRepository, cc: MessagesControl
     }(ec)
   }
 
-  def update() = Action.async { implicit request: Request[AnyContent] =>
+  def update() = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("updateCompanyCalled"))
+      val progressResult = request.body.validate[Progress]
+      progressResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        progress => {
+          progress.edit(pr)
+          Ok
+        }
+      )
     }(ec)
   }
 

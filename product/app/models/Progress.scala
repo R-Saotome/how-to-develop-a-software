@@ -25,7 +25,16 @@ case class Progress(id: Option[Long] = None,
                     orderNumber: Int,
                     name: String) {
   def save(repository:ProgressRepository):Option[Long] = {
-    repository.add(this)
+      repository.add(this)
+  }
+
+  def edit(repository:ProgressRepository):Unit = {
+    this.id match {
+      case Some(_) => {
+        repository.update(this)
+      }
+      case None => throw new Exception("data not found")
+    }
   }
 
   def remove = {}
