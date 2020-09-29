@@ -55,4 +55,15 @@ class ProgressRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
       }
     }
   }
+
+  def remove(progressId: Long): Unit = {
+    db.withConnection { implicit conn =>
+      SQL(
+          f"""
+      DELETE FROM progress
+        where id = ${progressId}
+      """
+        ).executeUpdate()
+    }
+  }
 }

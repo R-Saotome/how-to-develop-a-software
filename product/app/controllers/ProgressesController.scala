@@ -44,9 +44,10 @@ class ProgressesController @Inject()(pr: ProgressRepository, cc: MessagesControl
     }(ec)
   }
 
-  def remove() = Action.async { implicit request: Request[AnyContent] =>
+  def remove(deleteId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("removeCompanyCalled"))
+      pr.remove(deleteId)
+      NoContent
     }(ec)
   }
 }
