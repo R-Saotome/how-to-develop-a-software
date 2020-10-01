@@ -1,8 +1,8 @@
 package controllers
 
 import javax.inject.Inject
-import models.OpportunityRepository
-import play.api.libs.json.Json
+import models.{Opportunity, OpportunityRepository}
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerComponents, Request}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -17,10 +17,16 @@ class OpportunitiesController @Inject()(or: OpportunityRepository, cc: MessagesC
     }(ec)
   }
 
-  def add() = Action.async { implicit request: Request[AnyContent] =>
+  def add() = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("addCompanyCalled"))
-    }(ec)
+      val personResult = request.body.validate[Opportunity]
+      personResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        opportunity => {
+          val generatedId: Option[Long] = opportunity.save(or)
+          Created(Json.obj("data" -> Json.toJson(opportunity.copy(id = generatedId))))
+        }
+      )    }(ec)
   }
 
   def update() = Action.async { implicit request: Request[AnyContent] =>

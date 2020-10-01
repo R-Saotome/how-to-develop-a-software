@@ -31,7 +31,9 @@ case class Opportunity(id: Option[Long] = None,
                        company: Option[SimpleCompany],
                        person: Option[SimplePerson],
                        correspondence: Option[SimpleUser]) {
-  def add = {}
+  def save(or:OpportunityRepository) = {
+    or.add(this)
+  }
 
   def update = {}
 
