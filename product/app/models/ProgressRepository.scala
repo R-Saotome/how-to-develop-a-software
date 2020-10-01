@@ -11,7 +11,7 @@ import scala.concurrent.ExecutionContext
 class ProgressRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
 
   val parser: RowParser[Progress] =
-    get[Option[Long]]("id") ~
+    get[Option[Long]]("progress.id") ~
       get[Int]("progress.order_number") ~
       get[String]("progress.name") map {
       case id ~ order ~ name =>

@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext
 class OpportunityRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
 
   val parser: RowParser[Opportunity] =
-    get[Option[Long]]("id") ~
+    get[Option[Long]]("opportunity.id") ~
       get[String]("opportunity.name") ~
       get[Option[Int]]("opportunity.amount") ~
       SimpleProgress.progressParser ~

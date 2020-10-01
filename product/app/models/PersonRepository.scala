@@ -11,7 +11,7 @@ import scala.concurrent.ExecutionContext
 class PersonRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
 
   val parser: RowParser[Person] =
-    get[Option[Long]]("id") ~
+    get[Option[Long]]("person.id") ~
       get[String]("person.first_name") ~
       get[String]("person.last_name") ~
       get[Option[String]]("person.department") ~
