@@ -118,4 +118,14 @@ class ReportRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
     }
   }
 
+  def remove(reportId: Long): Unit = {
+    db.withConnection { implicit conn =>
+      SQL(
+        f"""
+      DELETE FROM report
+        where id = ${reportId}
+      """
+      ).executeUpdate()
+    }
+  }
 }

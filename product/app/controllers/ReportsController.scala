@@ -44,9 +44,10 @@ class ReportsController @Inject()(rr: ReportRepository, cc: MessagesControllerCo
   }
 
 
-  def remove() = Action.async { implicit request: Request[AnyContent] =>
+  def remove(deleteId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("removeCompanyCalled"))
+      rr.remove(deleteId)
+      NoContent
     }(ec)
   }
 }
