@@ -27,7 +27,7 @@ object SimpleOpportunity {
 case class Opportunity(id: Option[Long] = None,
                        name: String,
                        amount: Option[Int] = None,
-                       progress: SimpleProgress,
+                       progress: Option[SimpleProgress],
                        company: Option[SimpleCompany],
                        person: Option[SimplePerson],
                        correspondence: Option[SimpleUser]) {

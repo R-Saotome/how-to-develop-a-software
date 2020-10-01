@@ -13,10 +13,13 @@ object Progress {
 object SimpleProgress {
   implicit val config = JsonConfiguration(SnakeCase)
   implicit val format: Format[SimpleProgress] = Json.format[SimpleProgress]
-  implicit val progressParser: RowParser[SimpleProgress] =
+  implicit val progressParser: RowParser[Option[SimpleProgress]] =
     get[Option[Long]]("progress.id") ~
-      get[String]("progress.name") map {
-      case id ~ name => SimpleProgress(id, name)
+      get[Option[String]]("progress.name") map {
+      case id ~ name => name match {
+        case Some(x) => Some(SimpleProgress(id, x))
+        case _ => None
+      }
     }
 
 }

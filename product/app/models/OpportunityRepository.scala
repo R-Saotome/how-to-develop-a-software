@@ -47,16 +47,26 @@ class OpportunityRepository @Inject()(db: Database)(implicit ec: ExecutionContex
         VALUES ((SELECT COUNT(*) FROM opportunity)+1,
          '${opportunity.name}',
          ${opportunity.amount.getOrElse(null)},
-         ${opportunity.progress.id.getOrElse(null)},
-         ${opportunity.company match {
+          ${
+          opportunity.progress match {
             case Some(x) => x.id.getOrElse(null)
             case None => null
-          }},
-          ${opportunity.person match {
-            case Some(x) => x.id.getOrElse(null)
+          }
+        },
+          ${
+          opportunity.company match {
+            case Some(c) => c.id.getOrElse(null)
             case None => null
-          }},
-          ${opportunity.correspondence match {
+          }
+        },
+          ${
+          opportunity.person match {
+            case Some(p) => p.id.getOrElse(null)
+            case None => null
+          }
+        },
+          ${
+          opportunity.correspondence match {
             case Some(x) => x.accountId.getOrElse(null)
             case None => null
           }
