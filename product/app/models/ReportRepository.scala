@@ -37,4 +37,43 @@ class ReportRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
       ).as(parser.*)
     }
   }
+
+  def add(report: Report): Option[Long] = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections could occur"
+      SQL(
+        s"""
+      INSERT INTO report
+        VALUES ((SELECT COUNT(*) FROM report)+1,
+         '${report.date}',
+          '${report.note.getOrElse("")}',
+          ${
+          report.company match {
+            case Some(c) => c.id.getOrElse(null)
+            case None => null
+          }
+        },
+          ${
+          report.person match {
+            case Some(p) => p.id.getOrElse(null)
+            case None => null
+          }
+        },
+          ${
+          report.opportunity match {
+            case Some(o) => o.id.getOrElse(null)
+            case None => null
+          }
+        },
+          ${
+          report.reportUser match {
+            case Some(x) => x.accountId.getOrElse(null)
+            case None => null
+          }
+        })
+      """
+      ).executeInsert()
+    }
+  }
+
 }

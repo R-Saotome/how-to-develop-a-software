@@ -19,7 +19,9 @@ case class Report(id: Option[Long] = None,
                   opportunity: Option[SimpleOpportunity],
                   reportUser: Option[SimpleUser]) {
 
-  def add = {}
+  def save(rr: ReportRepository) = {
+    rr.add(this)
+  }
 
   def update = {}
 
