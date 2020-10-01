@@ -1,8 +1,8 @@
 package controllers
 
 import javax.inject.{Inject, Singleton}
-import models.CompanyRepository
-import play.api.libs.json.Json
+import models.{Company, CompanyRepository}
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerComponents, Request}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -18,9 +18,16 @@ class CompaniesController @Inject()(cr: CompanyRepository, cc: MessagesControlle
     }(ec)
   }
 
-  def add() = Action.async { implicit request: Request[AnyContent] =>
+  def add() = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("addCompanyCalled"))
+      val companyResult = request.body.validate[Company]
+      companyResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        company => {
+          val generatedId: Option[Long] = company.save(cr)
+          Created(Json.obj("data" -> Json.toJson(company.copy(id = generatedId))))
+        }
+      )
     }(ec)
   }
 

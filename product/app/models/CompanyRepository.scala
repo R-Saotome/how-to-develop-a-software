@@ -35,4 +35,27 @@ class CompanyRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
       ).as(parser.*)
     }
   }
+
+  def add(company: Company): Option[Long] = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections occurs at "${progress.name}"
+      SQL(
+        s"""
+      INSERT INTO company
+        VALUES ((SELECT COUNT(*) FROM company)+1, '${company.name}', '${company.field.getOrElse("")}', '${
+          company.address
+            .getOrElse("")
+        }', '${company.tel.getOrElse("")}', '${company.fax.getOrElse("")}', '${
+          company.email
+            .getOrElse("")
+        }', '${company.url.getOrElse("")}', '${
+          company.correspondence match {
+            case Some(x) => x.accountId.getOrElse(null)
+            case None => null
+          }
+        }')
+      """
+      ).executeInsert()
+    }
+  }
 }

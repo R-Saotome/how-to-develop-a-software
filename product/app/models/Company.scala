@@ -35,8 +35,9 @@ case class Company(id: Option[Long] = None,
                    email: Option[String],
                    url: Option[String],
                    correspondence: Option[SimpleUser]) {
-
-  def add = {}
+  def save(cp: CompanyRepository): Option[Long] = {
+    cp.add(this)
+  }
 
   def update = {}
 
