@@ -46,4 +46,55 @@ class ScheduleRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
           .map { case (schedule, list) => schedule.copy(members = list) }
     }
   }
+
+  def add(schedule: Schedule): Option[Long] = {
+    db.withTransaction { implicit conn =>
+      // FIXME SQL Injections could occur"
+      val generatedID:Option[Long] = SQL(
+        s"""
+      INSERT INTO schedule
+        VALUES ((SELECT COUNT(*) FROM schedule)+1,
+          ${schedule.isAllDay},
+          '${schedule.startDate}',
+          '${schedule.endDate}',
+          '${schedule.title}',
+          '${schedule.note.getOrElse("")}',
+          ${
+          schedule.company match {
+            case Some(c) => c.id.getOrElse(null)
+            case None => null
+          }
+        },
+          ${
+          schedule.person match {
+            case Some(p) => p.id.getOrElse(null)
+            case None => null
+          }
+        },
+          ${
+          schedule.opportunity match {
+            case Some(o) => o.id.getOrElse(null)
+            case None => null
+          }
+        })
+      """
+      ).executeInsert()
+
+      schedule.members.foreach(member => {
+        SQL(
+          s"""
+             INSERT INTO schedule_member
+              VALUES(
+               ${generatedID.getOrElse(null)},
+               ${member.accountId.getOrElse(null)}
+              )
+             """
+        ).executeInsert()
+
+      })
+
+      generatedID
+    }
+  }
+
 }

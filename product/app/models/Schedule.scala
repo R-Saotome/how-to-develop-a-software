@@ -22,7 +22,9 @@ case class Schedule(id: Option[Long] = None,
                     person: Option[SimplePerson],
                     opportunity: Option[SimpleOpportunity],
                     members: List[SimpleUser]) {
-  def add = {}
+  def save(sr: ScheduleRepository) = {
+    sr.add(this)
+  }
 
   def update = {}
 

@@ -1,8 +1,8 @@
 package controllers
 
 import javax.inject.{Inject, Singleton}
-import models.ScheduleRepository
-import play.api.libs.json.Json
+import models.{Schedule, ScheduleRepository}
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerComponents, Request}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -18,9 +18,16 @@ class SchedulesController @Inject()(sr: ScheduleRepository, cc: MessagesControll
     }(ec)
   }
 
-  def add() = Action.async { implicit request: Request[AnyContent] =>
+  def add() = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("addCompanyCalled"))
+      val scheduleResult = request.body.validate[Schedule]
+      scheduleResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        schedule => {
+          val generatedId: Option[Long] = schedule.save(sr)
+          Created(Json.obj("data" -> Json.toJson(schedule.copy(id = generatedId))))
+        }
+      )
     }(ec)
   }
 
