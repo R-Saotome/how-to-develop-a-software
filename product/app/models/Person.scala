@@ -41,7 +41,9 @@ case class Person(id: Option[Long] = None,
     pr.add(this)
   }
 
-  def update = {}
+  def edit(pr:PersonRepository) = {
+    pr.update(this)
+  }
 
   def remove = {}
 

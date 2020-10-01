@@ -30,10 +30,17 @@ class PersonsController @Inject()(pr: PersonRepository, cc: MessagesControllerCo
     }(ec)
   }
 
-  def update() = Action.async { implicit request: Request[AnyContent] =>
+  def update(updateId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("updateCompanyCalled"))
-    }(ec)
+      val companyResult = request.body.validate[Person]
+      companyResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        person => {
+          person.copy(id = Some(updateId)).edit(pr)
+          NoContent
+        }
+      )
+    }
   }
 
   def remove() = Action.async { implicit request: Request[AnyContent] =>

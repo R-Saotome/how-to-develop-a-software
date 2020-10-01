@@ -65,4 +65,38 @@ class PersonRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
       ).executeInsert()
     }
   }
+
+  def update(person: Person) = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections could occur"
+      person.id match {
+        case Some(x) => SQL(
+          f"""
+      UPDATE person
+        SET company_id = ${
+            person.company match {
+              case Some(c) => c.id.getOrElse(null)
+              case None => null
+            }
+          },
+            first_name = '${person.firstName}',
+            last_name = '${person.lastName}',
+            department = '${person.department.getOrElse("")}',
+            position = '${person.position.getOrElse("")}',
+            tel = '${person.tel.getOrElse("")}',
+            email = '${person.email.getOrElse("")}',
+            correspondence_id = ${
+            person.correspondence match {
+              case Some(x) => x.accountId.getOrElse(null)
+              case None => null
+            }
+          }
+        WHERE id = ${x}
+      """
+        ).executeUpdate()
+
+        case None => Error
+      }
+    }
+  }
 }
