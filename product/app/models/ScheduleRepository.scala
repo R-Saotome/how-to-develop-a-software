@@ -157,4 +157,14 @@ class ScheduleRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
     }
   }
 
+  def remove(scheduleId: Long): Unit = {
+    db.withConnection { implicit conn =>
+      SQL(
+        f"""
+      DELETE FROM schedule
+        where id = ${scheduleId}
+      """
+      ).executeUpdate()
+    }
+  }
 }

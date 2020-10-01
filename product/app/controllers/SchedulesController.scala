@@ -44,9 +44,10 @@ class SchedulesController @Inject()(sr: ScheduleRepository, cc: MessagesControll
     }
   }
 
-  def remove() = Action.async { implicit request: Request[AnyContent] =>
+  def remove(deleteId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("removeCompanyCalled"))
+      sr.remove(deleteId)
+      NoContent
     }(ec)
   }
 }

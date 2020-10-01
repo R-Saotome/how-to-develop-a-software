@@ -291,8 +291,8 @@ CREATE TABLE schedule_member (
 
  PRIMARY KEY (schedule_id,account_id),
 
- FOREIGN KEY (schedule_id) REFERENCES schedule (id),
- FOREIGN KEY (account_id) REFERENCES user (account_id)
+ FOREIGN KEY (schedule_id) REFERENCES schedule (id) ON DELETE CASCADE,
+ FOREIGN KEY (account_id) REFERENCES user (account_id) ON DELETE CASCADE
 );
 INSERT INTO schedule_member values (1, 1);
 INSERT INTO schedule_member values (1, 2);
@@ -365,7 +365,7 @@ DROP TABLE person CASCADE CONSTRAINTS;
 DROP TABLE company_sheet CASCADE CONSTRAINTS;
 DROP TABLE opportunity CASCADE CONSTRAINTS;
 DROP TABLE schedule CASCADE CONSTRAINTS;
-DROP TABLE schedule_menber CASCADE CONSTRAINTS;
+DROP TABLE schedule_member CASCADE CONSTRAINTS;
 DROP TABLE opportunity_sheet CASCADE CONSTRAINTS;
 DROP TABLE schedule_sheet CASCADE CONSTRAINTS;
 DROP TABLE report CASCADE CONSTRAINTS;
