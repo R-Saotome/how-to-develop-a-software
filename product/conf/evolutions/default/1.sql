@@ -216,8 +216,8 @@ CREATE TABLE person (
  email VARCHAR(255),
  correspondence_id INT,
 
- FOREIGN KEY (company_id) REFERENCES company (id),
- FOREIGN KEY (correspondence_id) REFERENCES user (account_id)
+ FOREIGN KEY (company_id) REFERENCES company (id) ON DELETE SET NULL,
+ FOREIGN KEY (correspondence_id) REFERENCES user (account_id) ON DELETE SET NULL
 );
 INSERT INTO person values (1, 1, '山本', '志信', '技術開発部', '部長', '00-0000-0000',
 'info@example.com', 1);
@@ -231,8 +231,8 @@ CREATE TABLE person_sheet (
 
  PRIMARY KEY (person_id,sheet_id),
 
- FOREIGN KEY (person_id) REFERENCES person (id),
- FOREIGN KEY (sheet_id) REFERENCES sheet (id)
+ FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE SET NULL,
+ FOREIGN KEY (sheet_id) REFERENCES sheet (id) ON DELETE SET NULL
 );
 
 -- Opportunity
@@ -240,15 +240,15 @@ CREATE TABLE opportunity (
  id INT NOT NULL PRIMARY KEY,
  name VARCHAR(255) NOT NULL,
  amount INT,
- progress_id INT NOT NULL,
+ progress_id INT,
  company_id INT,
  person_id INT,
  correspondence_id INT,
 
- FOREIGN KEY (progress_id) REFERENCES progress (id),
- FOREIGN KEY (company_id) REFERENCES company (id),
- FOREIGN KEY (person_id) REFERENCES person (id),
- FOREIGN KEY (correspondence_id) REFERENCES user (account_id)
+ FOREIGN KEY (progress_id) REFERENCES progress (id) ON DELETE SET NULL,
+ FOREIGN KEY (company_id) REFERENCES company (id) ON DELETE SET NULL,
+ FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE SET NULL,
+ FOREIGN KEY (correspondence_id) REFERENCES user (account_id) ON DELETE SET NULL
 );
 INSERT INTO opportunity values (1, 'Startup Project',100000000, 1, 1, 1, 1);
 INSERT INTO opportunity values (2, 'Startup Project',100000000, 1, null, null, null);
@@ -276,9 +276,9 @@ CREATE TABLE schedule (
  person_id INT,
  opportunity_id INT,
 
- FOREIGN KEY (company_id) REFERENCES company (id),
- FOREIGN KEY (person_id) REFERENCES person (id),
- FOREIGN KEY (opportunity_id) REFERENCES opportunity (id)
+ FOREIGN KEY (company_id) REFERENCES company (id) ON DELETE SET NULL,
+ FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE SET NULL,
+ FOREIGN KEY (opportunity_id) REFERENCES opportunity (id) ON DELETE SET NULL
 );
 INSERT INTO schedule values (1, TRUE, '2020-09-29 00:00:00', '2020-09-30 00:00:00', '休日', 'test', 1, 1, 1);
 INSERT INTO schedule values (2, TRUE, '2020-09-29 00:00:00', '2020-09-30 00:00:00', '休日', 'test', null, null, null);
@@ -320,10 +320,10 @@ CREATE TABLE report (
  opportunity_id INT,
  report_user_id INT NOT NULL,
 
- FOREIGN KEY (company_id) REFERENCES company (id),
- FOREIGN KEY (person_id) REFERENCES person (id),
- FOREIGN KEY (opportunity_id) REFERENCES opportunity (id),
- FOREIGN KEY (report_user_id) REFERENCES user (account_id)
+ FOREIGN KEY (company_id) REFERENCES company (id) ON DELETE SET NULL,
+ FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE SET NULL,
+ FOREIGN KEY (opportunity_id) REFERENCES opportunity (id) ON DELETE SET NULL,
+ FOREIGN KEY (report_user_id) REFERENCES user (account_id) ON DELETE SET NULL
 );
 INSERT INTO report values (1, '2020-09-29 00:00:00', 'test', 1, 1, 1, 1);
 INSERT INTO report values (2, '2020-09-29 00:00:00', 'test', null, null, null, 1);
