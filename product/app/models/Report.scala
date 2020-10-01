@@ -23,7 +23,9 @@ case class Report(id: Option[Long] = None,
     rr.add(this)
   }
 
-  def update = {}
+  def edit(rr: ReportRepository) = {
+    rr.update(this)
+  }
 
   def remove = {}
 

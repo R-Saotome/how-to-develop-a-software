@@ -21,7 +21,7 @@ DELETE  /opportunities/:id            controllers.OpportunitiesController.remove
 
 GET     /reports                      controllers.ReportsController.get
 POST    /reports                      controllers.ReportsController.add
-PUT     /reports                      controllers.ReportsController.update
+PUT     /reports/:id                  controllers.ReportsController.update(id:Long)
 DELETE  /reports                      controllers.ReportsController.remove
 
 GET     /schedules                    controllers.SchedulesController.get

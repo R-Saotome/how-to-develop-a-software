@@ -76,4 +76,46 @@ class ReportRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
     }
   }
 
+  def update(report: Report) = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections could occur"
+      report.id match {
+        case Some(x) => SQL(
+          f"""
+      UPDATE report
+        SET date = '${report.date}',
+        note = '${report.note.getOrElse(null)}',
+        company_id = ${
+            report.company match {
+              case Some(c) => c.id.getOrElse(null)
+              case None => null
+            }
+          },
+        person_id = ${
+            report.person match {
+              case Some(p) => p.id.getOrElse(null)
+              case None => null
+            }
+          },
+        opportunity_id = ${
+            report.opportunity match {
+              case Some(o) => o.id.getOrElse(null)
+              case None => null
+            }
+          },
+        report_user_id = ${
+            report.reportUser match {
+              case Some(x) => x.accountId.getOrElse(null)
+              case None => null
+            }
+          }
+        WHERE id = ${x}
+      """
+        ).executeUpdate()
+
+        case None => Error
+      }
+    }
+  }
+
 }
