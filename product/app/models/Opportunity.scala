@@ -31,11 +31,11 @@ case class Opportunity(id: Option[Long] = None,
                        company: Option[SimpleCompany],
                        person: Option[SimplePerson],
                        correspondence: Option[SimpleUser]) {
-  def save(or:OpportunityRepository) = {
+  def save(or: OpportunityRepository) = {
     or.add(this)
   }
 
-  def edit(or:OpportunityRepository) = {
+  def edit(or: OpportunityRepository) = {
     or.update(this)
   }
 

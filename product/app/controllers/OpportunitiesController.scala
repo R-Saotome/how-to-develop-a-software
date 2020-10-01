@@ -26,7 +26,8 @@ class OpportunitiesController @Inject()(or: OpportunityRepository, cc: MessagesC
           val generatedId: Option[Long] = opportunity.save(or)
           Created(Json.obj("data" -> Json.toJson(opportunity.copy(id = generatedId))))
         }
-      )    }(ec)
+      )
+    }(ec)
   }
 
   def update(updateId: Long) = Action.async(parse.json) { implicit request =>
