@@ -31,10 +31,17 @@ class SchedulesController @Inject()(sr: ScheduleRepository, cc: MessagesControll
     }(ec)
   }
 
-  def update() = Action.async { implicit request: Request[AnyContent] =>
+  def update(updateId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("updateCompanyCalled"))
-    }(ec)
+      val scheduleResult = request.body.validate[Schedule]
+      scheduleResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        schedule => {
+          schedule.copy(id = Some(updateId)).edit(sr)
+          NoContent
+        }
+      )
+    }
   }
 
   def remove() = Action.async { implicit request: Request[AnyContent] =>

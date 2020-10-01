@@ -13,7 +13,7 @@ object Schedule {
 }
 
 case class Schedule(id: Option[Long] = None,
-                   isAllDay: Boolean,
+                    isAllDay: Boolean,
                     startDate: DateTime,
                     endDate: DateTime,
                     title: String,
@@ -26,7 +26,9 @@ case class Schedule(id: Option[Long] = None,
     sr.add(this)
   }
 
-  def update = {}
+  def edit(sr: ScheduleRepository) = {
+    sr.update(this)
+  }
 
   def remove = {}
 
