@@ -37,7 +37,9 @@ case class Person(id: Option[Long] = None,
                   company: Option[SimpleCompany],
                   correspondence: Option[SimpleUser]
                  ) {
-  def add = {}
+  def save(pr: PersonRepository):Option[Long] = {
+    pr.add(this)
+  }
 
   def update = {}
 

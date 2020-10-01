@@ -36,4 +36,33 @@ class PersonRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
       ).as(parser.*)
     }
   }
+
+  def add(person: Person): Option[Long] = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections could occur"
+      SQL(
+        s"""
+      INSERT INTO person
+        VALUES ((SELECT COUNT(*) FROM person)+1, ${
+          person.company match {
+            case Some(x) => x.id.getOrElse(null)
+            case None => null
+          }
+        }, '${person.firstName}', '${person.lastName}',
+         '${
+          person.department
+            .getOrElse("")
+        }', '${person.position.getOrElse("")}', '${person.tel.getOrElse("")}', '${
+          person.email
+            .getOrElse("")
+        }', ${
+          person.correspondence match {
+            case Some(x) => x.accountId.getOrElse(null)
+            case None => null
+          }
+        })
+      """
+      ).executeInsert()
+    }
+  }
 }
