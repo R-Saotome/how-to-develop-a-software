@@ -42,9 +42,10 @@ class OpportunitiesController @Inject()(or: OpportunityRepository, cc: MessagesC
     }
   }
 
-  def remove() = Action.async { implicit request: Request[AnyContent] =>
+  def remove(deleteId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("removeCompanyCalled"))
+      or.remove(deleteId)
+      NoContent
     }(ec)
   }
 }

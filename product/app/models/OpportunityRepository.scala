@@ -118,4 +118,14 @@ class OpportunityRepository @Inject()(db: Database)(implicit ec: ExecutionContex
     }
   }
 
+  def remove(opportunityId: Long): Unit = {
+    db.withConnection { implicit conn =>
+      SQL(
+        f"""
+      DELETE FROM opportunity
+        where id = ${opportunityId}
+      """
+      ).executeUpdate()
+    }
+  }
 }

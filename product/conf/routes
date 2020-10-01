@@ -17,7 +17,7 @@ DELETE  /persons/:id                  controllers.PersonsController.remove(id:Lo
 GET     /opportunities                controllers.OpportunitiesController.get
 POST    /opportunities                controllers.OpportunitiesController.add
 PUT     /opportunities/:id            controllers.OpportunitiesController.update(id:Long)
-DELETE  /opportunities                controllers.OpportunitiesController.remove
+DELETE  /opportunities/:id            controllers.OpportunitiesController.remove(id:Long)
 
 GET     /reports                      controllers.ReportsController.get
 POST    /reports                      controllers.ReportsController.add
