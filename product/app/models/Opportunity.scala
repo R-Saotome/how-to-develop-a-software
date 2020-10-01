@@ -35,7 +35,9 @@ case class Opportunity(id: Option[Long] = None,
     or.add(this)
   }
 
-  def update = {}
+  def edit(or:OpportunityRepository) = {
+    or.update(this)
+  }
 
   def remove = {}
 

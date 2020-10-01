@@ -1,7 +1,7 @@
 package models
 
 import anorm.SqlParser.get
-import anorm.{RowParser, SQL, ~}
+import anorm.{Error, RowParser, SQL, ~}
 import javax.inject.{Inject, Singleton}
 import play.api.db.Database
 
@@ -46,7 +46,7 @@ class OpportunityRepository @Inject()(db: Database)(implicit ec: ExecutionContex
       INSERT INTO opportunity
         VALUES ((SELECT COUNT(*) FROM opportunity)+1,
          '${opportunity.name}',
-         ${opportunity.amount.getOrElse(null)},
+          ${opportunity.amount.getOrElse(null)},
           ${
           opportunity.progress match {
             case Some(x) => x.id.getOrElse(null)
@@ -75,4 +75,47 @@ class OpportunityRepository @Inject()(db: Database)(implicit ec: ExecutionContex
       ).executeInsert()
     }
   }
+
+  def update(opportunity: Opportunity) = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections could occur"
+      opportunity.id match {
+        case Some(x) => SQL(
+          f"""
+      UPDATE opportunity
+        SET name = '${opportunity.name}',
+        amount = ${opportunity.amount.getOrElse(null)},
+        progress_id = ${
+            opportunity.progress match {
+              case Some(x) => x.id.getOrElse(null)
+              case None => null
+            }
+          },
+        company_id = ${
+            opportunity.company match {
+              case Some(c) => c.id.getOrElse(null)
+              case None => null
+            }
+          },
+        person_id = ${
+            opportunity.person match {
+              case Some(p) => p.id.getOrElse(null)
+              case None => null
+            }
+          },
+        correspondence_id = ${
+            opportunity.correspondence match {
+              case Some(x) => x.accountId.getOrElse(null)
+              case None => null
+            }
+          }
+        WHERE id = ${x}
+      """
+        ).executeUpdate()
+
+        case None => Error
+      }
+    }
+  }
+
 }

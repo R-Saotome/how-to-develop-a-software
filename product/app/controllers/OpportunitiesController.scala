@@ -29,10 +29,17 @@ class OpportunitiesController @Inject()(or: OpportunityRepository, cc: MessagesC
       )    }(ec)
   }
 
-  def update() = Action.async { implicit request: Request[AnyContent] =>
+  def update(updateId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("updateCompanyCalled"))
-    }(ec)
+      val companyResult = request.body.validate[Opportunity]
+      companyResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        opportunity => {
+          opportunity.copy(id = Some(updateId)).edit(or)
+          NoContent
+        }
+      )
+    }
   }
 
   def remove() = Action.async { implicit request: Request[AnyContent] =>
