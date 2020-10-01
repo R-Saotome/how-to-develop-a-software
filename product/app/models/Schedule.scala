@@ -13,6 +13,7 @@ object Schedule {
 }
 
 case class Schedule(id: Option[Long] = None,
+                   isAllDay: Boolean,
                     startDate: DateTime,
                     endDate: DateTime,
                     title: String,

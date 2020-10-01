@@ -13,6 +13,7 @@ class ScheduleRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
 
   val parser: RowParser[(Schedule, Option[SimpleUser])] =
     get[Option[Long]]("schedule.id") ~
+      get[Boolean]("schedule.is_all_day") ~
       get[DateTime]("schedule.start_date") ~
       get[DateTime]("schedule.end_date") ~
       get[String]("schedule.title") ~
@@ -21,8 +22,8 @@ class ScheduleRepository @Inject()(db: Database)(implicit ec: ExecutionContext) 
       SimplePerson.personParser ~
       SimpleOpportunity.opportunityParser ~
       SimpleUser.userParser map {
-      case id ~ start ~ end ~ title ~ note ~ company ~ person ~ opportunity ~ member =>
-        (Schedule(id, start, end, title, note, company, person, opportunity, Nil), member)
+      case id ~ isAllDay ~ start ~ end ~ title ~ note ~ company ~ person ~ opportunity ~ member =>
+        (Schedule(id, isAllDay, start, end, title, note, company, person, opportunity, Nil), member)
     }
 
   def find() = {
