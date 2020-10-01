@@ -43,9 +43,10 @@ class PersonsController @Inject()(pr: PersonRepository, cc: MessagesControllerCo
     }
   }
 
-  def remove() = Action.async { implicit request: Request[AnyContent] =>
+  def remove(deleteId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("removeCompanyCalled"))
+      pr.remove(deleteId)
+      NoContent
     }(ec)
   }
 }

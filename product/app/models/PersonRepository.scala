@@ -99,4 +99,15 @@ class PersonRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
       }
     }
   }
+
+  def remove(personId: Long): Unit = {
+    db.withConnection { implicit conn =>
+      SQL(
+        f"""
+      DELETE FROM person
+        where id = ${personId}
+      """
+      ).executeUpdate()
+    }
+  }
 }
