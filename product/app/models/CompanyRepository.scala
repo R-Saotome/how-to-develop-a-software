@@ -87,4 +87,15 @@ class CompanyRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
       }
     }
   }
+
+  def remove(companyId: Long): Unit = {
+    db.withConnection { implicit conn =>
+      SQL(
+        f"""
+      DELETE FROM company
+        where id = ${companyId}
+      """
+      ).executeUpdate()
+    }
+  }
 }

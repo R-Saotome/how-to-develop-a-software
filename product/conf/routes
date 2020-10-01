@@ -7,7 +7,7 @@
 GET     /companies                    controllers.CompaniesController.get
 POST    /companies                    controllers.CompaniesController.add
 PUT     /companies/:id                controllers.CompaniesController.update(id:Long)
-DELETE  /companies                    controllers.CompaniesController.remove
+DELETE  /companies/:id                controllers.CompaniesController.remove(id:Long)
 
 GET     /persons                      controllers.PersonsController.get
 POST    /persons                      controllers.PersonsController.add

@@ -47,7 +47,8 @@ class CompaniesController @Inject()(cr: CompanyRepository, cc: MessagesControlle
 
   def remove(deleteId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("removeCompanyCalled"))
+      cr.remove(deleteId)
+      NoContent
     }(ec)
   }
 }
