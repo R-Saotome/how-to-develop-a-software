@@ -31,13 +31,21 @@ class CompaniesController @Inject()(cr: CompanyRepository, cc: MessagesControlle
     }(ec)
   }
 
-  def update() = Action.async { implicit request: Request[AnyContent] =>
+  def update(updateId: Long) = Action.async(parse.json) { implicit request =>
     Future {
-      Ok(Json.toJson("updateCompanyCalled"))
+      val companyResult = request.body.validate[Company]
+      companyResult.fold(
+        errors => BadRequest(JsError.toJson(errors)),
+        company => {
+          company.copy(id = Some(updateId)).edit(cr)
+          NoContent
+        }
+      )
+
     }(ec)
   }
 
-  def remove() = Action.async { implicit request: Request[AnyContent] =>
+  def remove(deleteId: Long) = Action.async(parse.json) { implicit request =>
     Future {
       Ok(Json.toJson("removeCompanyCalled"))
     }(ec)

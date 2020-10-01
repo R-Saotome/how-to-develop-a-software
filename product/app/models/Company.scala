@@ -35,11 +35,13 @@ case class Company(id: Option[Long] = None,
                    email: Option[String],
                    url: Option[String],
                    correspondence: Option[SimpleUser]) {
-  def save(cp: CompanyRepository): Option[Long] = {
-    cp.add(this)
+  def save(cr: CompanyRepository): Option[Long] = {
+    cr.add(this)
   }
 
-  def update = {}
+  def edit(cr: CompanyRepository) = {
+    cr.update(this)
+  }
 
   def remove = {}
 

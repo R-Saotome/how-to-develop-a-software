@@ -38,7 +38,7 @@ class CompanyRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
 
   def add(company: Company): Option[Long] = {
     db.withConnection { implicit conn =>
-      // FIXME SQL Injections occurs at "${progress.name}"
+      // FIXME SQL Injections could occur"
       SQL(
         s"""
       INSERT INTO company
@@ -56,6 +56,35 @@ class CompanyRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
         }')
       """
       ).executeInsert()
+    }
+  }
+
+  def update(company: Company) = {
+    db.withConnection { implicit conn =>
+      // FIXME SQL Injections could occur"
+      company.id match {
+        case Some(x) => SQL(
+          f"""
+      UPDATE company
+        SET name = '${company.name}',
+            field = '${company.field.getOrElse("")}',
+            address = '${company.address.getOrElse("")}',
+            tel = '${company.tel.getOrElse("")}',
+            fax = '${company.fax.getOrElse("")}',
+            email = '${company.email.getOrElse("")}',
+            url = '${company.url.getOrElse("")}',
+            correspondence_id = ${
+            company.correspondence match {
+              case Some(x) => x.accountId.getOrElse(null)
+              case None => null
+            }
+          }
+        where id = ${x}
+      """
+        ).executeUpdate()
+
+        case None => Error
+      }
     }
   }
 }

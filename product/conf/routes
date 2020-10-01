@@ -6,7 +6,7 @@
 # An example controller showing a sample home page
 GET     /companies                    controllers.CompaniesController.get
 POST    /companies                    controllers.CompaniesController.add
-PUT     /companies                    controllers.CompaniesController.update
+PUT     /companies/:id                controllers.CompaniesController.update(id:Long)
 DELETE  /companies                    controllers.CompaniesController.remove
 
 GET     /persons                      controllers.PersonsController.get
