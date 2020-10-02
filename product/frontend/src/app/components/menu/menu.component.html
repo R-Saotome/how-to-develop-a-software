@@ -1,1 +1,6 @@
-<p>menu works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let menu of menus">
+    <mat-icon matListIcon>{{ menu.icon }}</mat-icon>
+    <h3 matLine>{{ menu.name }}</h3>
+  </mat-list-item>
+</mat-list>
