@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SchedulesModule } from './components/schedules/schedules.module';
 import { MenuModule } from './components/menu/menu.module';
+import { TableModule } from './components/table/table.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { MenuModule } from './components/menu/menu.module';
     MatToolbarModule,
     SchedulesModule,
     MenuModule,
+    TableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
