@@ -1,0 +1,196 @@
+{
+  "user": {
+    "account_id": 1,
+    "first_name": "taro",
+    "last_name": "yamada",
+    "department": "",
+    "position": "",
+    "tel": ""
+  }
+}
+
+{
+    "opportunity" : {
+        "id" : 1,
+        "name" : "test",
+        "amount" : 0,
+        "progress": "Ok",
+        "company" : {
+            "id": 1,
+            "name": ""
+        },
+        "person" : {
+            "id": 1,
+            "first_name": "shinobu",
+            "last_name": "yamamoto"
+        },
+        "correspondence": {
+            "account_id": 1,
+            "first_name": "taro",
+            "last_name": "yamada",
+        }
+    }
+}
+
+{
+    "person" : {
+        "id" : 1,
+        "first_name": "sinobu",
+        "last_name" : "yamamoto",
+        "company" : {
+            "id": 1,
+            "name": ""
+        },
+        "department": "",
+        "position": "",
+        "tel" : "",
+        "email" : "",
+        "correspondence": {
+            "account_id": 1,
+            "first_name": "taro",
+            "last_name": "yamada",
+        }
+    }
+}
+
+{
+    "company" : {
+        "id" : 1,
+        "name" : "crm",
+        "field" : "",
+        "address" : "",
+        "tel" : "",
+        "fax" : "",
+        "email": "",
+        "correspondence": {
+            "account_id": 1,
+            "first_name": "taro",
+            "last_name": "yamada",
+        }
+    }
+}
+
+{
+    "report" : {
+        "id" : 1,
+        "date" : "2020-02-20 19:00:00",
+        "note" : "",
+        "company" : {
+            "id" :1,
+            "name" :"crm"
+        },
+        "person" : {
+            "id": 1,
+            "first_name": "shinobu",
+            "last_name": "yamamoto"
+        },
+        "opportunity": {
+            "id" :1,
+            "name" : "test"
+        },
+        "report_user" : {
+            "account_id": 1,
+            "first_name": "taro",
+            "last_name": "yamada",
+        }
+    }
+}
+
+{
+    "schedule": {
+        "id": 1,
+        "is_all_day": false,
+        "start_date" :"2020-02-20 10:00:00",
+        "end_date" :"2020-02-2 20:00:00",
+        "title" : "test",
+        "note" : "",
+        "member" : [
+            {
+                "id" : 1,
+                "name" : "taro",
+                "status" : "join"
+            }
+        ],
+        "company" : {
+            "id" :1,
+            "name" :"crm"
+        },
+        "person" : {
+            "id": 1,
+            "first_name": "shinobu",
+            "last_name": "yamamoto"
+        },
+        "opportunity": {
+            "id" :1,
+            "name" : "test"
+        },
+    }
+}
+
+{
+    "custom_sheets": [
+        {
+            "id" : 1,
+            "name" : "custom sheet 1",
+            "detail" : "",
+            "order_number" : 1,
+            "data" : {
+               "text_field" : "text_value",
+               "number_field" : 0,
+               "select_field" : {
+                   "id" : 1,
+                   "value" : "select_value_1"
+               },
+               "checkbox_field": [
+                   {
+                       "id" : 1,
+                       "value" : "checkbox_value_1"
+                   },
+                   {
+                       "id" : 2,
+                       "value" : "checkbox_value_2"
+                   }
+               ]
+            }
+        }
+    ]
+}
+
+{
+    "sheets": [
+        {
+            "id" : 1,
+            "name" : "custom sheet 1",
+            "order" : 1,
+            "type" : "company",
+            "fields": [
+                {
+                    "id" : 1,
+                    "name" : "custom_field_1",
+                    "is_required": true,
+                    "order" :1,
+                    "input_type": "text"
+                },
+                {
+                    "id" : 2,
+                    "name" : "custom_field_2",
+                    "is_required": false,
+                    "order" :1,
+                    "input_type": "select",
+                    "options": [
+                        {
+                         "id" : 1,
+                         "value" : "select1",
+                         "order" : 1   
+                        },
+                        {
+                         "id" : 2,
+                         "value" : "select2",
+                         "order" : 2 
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
