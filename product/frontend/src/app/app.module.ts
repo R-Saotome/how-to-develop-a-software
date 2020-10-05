@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CalendarModule } from './components/calendar/calendar.module';
 import { MenuModule } from './components/menu/menu.module';
+import { CompanyDetailModule } from './pages/company/company-detail/company-detail.module';
 import { CompanyListModule } from './pages/company/company-list/company-list.module';
 
 @NgModule({
@@ -22,7 +23,7 @@ import { CompanyListModule } from './pages/company/company-list/company-list.mod
     CalendarModule,
     MenuModule,
     CompanyListModule,
-    TableModule,
+    CompanyDetailModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
