@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SchedulesModule } from './components/schedules/schedules.module';
+import { CalendarModule } from './components/calendar/calendar.module';
 import { MenuModule } from './components/menu/menu.module';
 import { TableModule } from './components/table/table.module';
 
@@ -19,7 +19,7 @@ import { TableModule } from './components/table/table.module';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
-    SchedulesModule,
+    CalendarModule,
     MenuModule,
     TableModule,
   ],

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({
-  selector: 'app-schedules',
-  templateUrl: './schedules.component.html',
-  styleUrls: ['./schedules.component.scss'],
+  selector: 'app-calendar',
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.scss'],
 })
-export class SchedulesComponent implements OnInit {
+export class CalendarComponent implements OnInit {
   constructor() {}
   ngOnInit(): void {}
   calendarOptions: CalendarOptions = {
