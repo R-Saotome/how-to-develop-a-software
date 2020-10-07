@@ -1,0 +1,15 @@
+<h1 mat-dialog-title color="warn">Warning</h1>
+<div mat-dialog-content>本当に削除してもよろしいでしょうか？</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    mat-dialog-close
+    color="warn"
+    (click)="onDeleteClick()"
+  >
+    Delete
+  </button>
+  <button mat-raised-button mat-dialog-close (click)="onCancelClick()">
+    Cancel
+  </button>
+</div>

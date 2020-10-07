@@ -10,15 +10,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CalendarModule } from './components/calendar/calendar.module';
 import { MenuModule } from './components/menu/menu.module';
 import { CompanyModule } from './pages/company/company.module';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatDialogModule,
     CalendarModule,
     MenuModule,
     CompanyModule,
