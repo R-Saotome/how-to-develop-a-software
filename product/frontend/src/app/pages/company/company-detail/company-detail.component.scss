@@ -10,8 +10,10 @@ mat-card {
 
 .basic-info-area {
   padding-left: 3em;
-  mat-card-subtitle > div {
-    padding: 0.2em 0;
+  mat-card-subtitle {
+    div {
+      padding: 0.2em 0;
+    }
   }
 }
 
