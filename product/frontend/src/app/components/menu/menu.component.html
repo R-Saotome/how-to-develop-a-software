@@ -1,5 +1,10 @@
 <mat-list>
-  <mat-list-item *ngFor="let menu of menus">
+  <mat-list-item
+    class="menu-item"
+    *ngFor="let menu of menus"
+    (click)="onNavigateTo(menu.href)"
+    matRipple
+  >
     <mat-icon matListIcon>{{ menu.icon }}</mat-icon>
     <h3 matLine>{{ menu.name }}</h3>
   </mat-list-item>
