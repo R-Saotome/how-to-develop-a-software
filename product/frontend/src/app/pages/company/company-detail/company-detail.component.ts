@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company-detail.component.scss']
 })
 export class CompanyDetailComponent implements OnInit {
+  isEditMode = false;
 
   constructor() { }
 
