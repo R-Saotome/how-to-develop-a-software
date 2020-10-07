@@ -1,0 +1,20 @@
+mat-card {
+  margin: 2em;
+  padding: 5em;
+  border-radius: 10%;
+}
+.profile-img {
+  height: 200px;
+  width: 200px;
+}
+
+.basic-info-area {
+  padding-left: 3em;
+  mat-card-subtitle > div {
+    padding: 0.2em 0;
+  }
+}
+
+.action-button-area {
+  float: right;
+}
