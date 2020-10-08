@@ -13,43 +13,43 @@
         <div>
           <mat-form-field appearance="standard">
             <mat-label>会社名</mat-label>
-            <input matInput />
+            <input matInput formControlName="name" />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="standard">
             <mat-label>業界名</mat-label>
-            <input matInput />
+            <input matInput formControlName="field" />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="standard">
             <mat-label>郵便番号</mat-label>
-            <input matInput />
+            <input matInput formControlName="postalCode" />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="standard">
             <mat-label>住所</mat-label>
-            <input matInput />
+            <input matInput formControlName="address" />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="standard">
             <mat-label>電話番号</mat-label>
-            <input matInput />
+            <input matInput formControlName="tel" />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="standard">
             <mat-label>Fax</mat-label>
-            <input matInput />
+            <input matInput formControlName="fax" />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field appearance="standard">
             <mat-label>URL</mat-label>
-            <input matInput />
+            <input matInput formControlName="url" />
           </mat-form-field>
         </div>
       </div>
@@ -63,7 +63,14 @@
       </mat-tab-group>
     </mat-card-content>
     <mat-card-actions class="action-button-area">
-        <button mat-raised-button color="primary" type="submit">OK</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="companyForm.invalid"
+      >
+        OK
+      </button>
       <button mat-raised-button (click)="onCancel()" type="button">
         Cancel
       </button>

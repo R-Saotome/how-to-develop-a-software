@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormComponent } from './form/form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CompanyDetailComponent, FormComponent],
@@ -17,7 +18,9 @@ import { FormComponent } from './form/form.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  exports: [CompanyDetailComponent],
+  exports: [CompanyDetailComponent, FormComponent],
 })
 export class CompanyDetailModule {}
