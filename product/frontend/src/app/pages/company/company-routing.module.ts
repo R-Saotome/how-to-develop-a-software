@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { FormComponent } from './company-detail/form/form.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 
 const routes: Routes = [
@@ -9,8 +10,21 @@ const routes: Routes = [
     component: CompanyListComponent,
   },
   {
+    path: 'new',
+    component: FormComponent,
+  },
+  {
     path: ':id',
-    component: CompanyDetailComponent,
+    children: [
+      {
+        path: '',
+        component: CompanyDetailComponent,
+      },
+      {
+        path: 'edit',
+        component: FormComponent,
+      },
+    ],
   },
 ];
 
