@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface PeriodicElement {
   name: string;
@@ -15,7 +15,13 @@ export interface PeriodicElement {
 export class TableComponent implements OnInit {
   @Input() displayedColumns: string[];
   @Input() dataSource: PeriodicElement[];
+
+  @Output() rowClicked = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
+
+  onRowClick(id) {
+    this.rowClicked.emit(id);
+  }
 }

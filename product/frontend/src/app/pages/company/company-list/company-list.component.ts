@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
-  styleUrls: ['./company-list.component.scss']
+  styleUrls: ['./company-list.component.scss'],
 })
 export class CompanyListComponent implements OnInit {
   columns: string[] = [
@@ -119,9 +120,10 @@ export class CompanyListComponent implements OnInit {
   ];
   constructor(private router: Router, private ar: ActivatedRoute) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  onShowDetail(id) {
+    this.router.navigate([id], { relativeTo: this.ar });
   }
 
   onCreateNew() {
