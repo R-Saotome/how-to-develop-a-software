@@ -12,6 +12,7 @@ import { MenuModule } from './components/menu/menu.module';
 import { CompanyModule } from './pages/company/company.module';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, DialogComponent],
@@ -22,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSidenavModule,
     MatToolbarModule,
     MatDialogModule,
+    MatButtonModule,
     CalendarModule,
     MenuModule,
     CompanyModule,
