@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormComponent } from './form/form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [CompanyDetailComponent, FormComponent],
@@ -16,11 +17,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatTabsModule,
     MatButtonModule,
+    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [CompanyDetailComponent, FormComponent],
+  exports: [CompanyDetailComponent],
 })
 export class CompanyDetailModule {}
