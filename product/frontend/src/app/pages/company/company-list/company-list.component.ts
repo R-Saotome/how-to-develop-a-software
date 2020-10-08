@@ -117,10 +117,14 @@ export class CompanyListComponent implements OnInit {
       url: 'https://www.shinobi.example',
     },
   ];
+  constructor(private router: Router, private ar: ActivatedRoute) {}
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onCreateNew() {
+    this.router.navigate(['new'], { relativeTo: this.ar });
+  }
 }
