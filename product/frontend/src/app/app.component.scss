@@ -1,3 +1,5 @@
+$toolbar-height: 70px;
+
 mat-drawer {
   width: 200px;
 }
@@ -5,4 +7,5 @@ mat-drawer {
 mat-drawer-content {
   padding-left: 30px;
   padding-bottom: 50px;
+  height: calc(93vh - #{$toolbar-height});
 }
