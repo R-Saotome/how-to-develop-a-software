@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-detail',
@@ -9,19 +7,11 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
   styleUrls: ['./company-detail.component.scss'],
 })
 export class CompanyDetailComponent implements OnInit {
-  isEditMode = false;
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(private router: Router, private ar: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
-  onDelete() {
-    const dialogRef = this.dialog.open(DialogComponent);
-    dialogRef.afterClosed().subscribe((isAccepted) => {
-      if (isAccepted) {
-        // TODO delete data by ID
-
-        this.router.navigateByUrl('/companies');
-      }
-    });
+  onEdit() {
+    this.router.navigate(['edit'], { relativeTo: this.ar });
   }
 }
