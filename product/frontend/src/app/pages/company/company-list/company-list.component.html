@@ -1,2 +1,11 @@
 <p>company-list works!</p>
-<app-table></app-table>
+<app-table
+  [displayedColumns]="columns"
+  [dataSource]="data"
+  (rowClicked)="onShowDetail($event)"
+></app-table>
+<div class="button-container">
+  <button mat-fab (click)="onCreateNew()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
