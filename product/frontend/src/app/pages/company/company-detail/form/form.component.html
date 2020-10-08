@@ -74,7 +74,13 @@
       <button mat-raised-button (click)="onCancel()" type="button">
         Cancel
       </button>
-      <button mat-raised-button color="warn" (click)="onDelete()" type="button">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onDelete()"
+        type="button"
+        *ngIf="isEditMode"
+      >
         Delete
       </button>
     </mat-card-actions>
