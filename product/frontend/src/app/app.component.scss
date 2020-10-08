@@ -1,8 +1,19 @@
+$toolbar-height: 70px;
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
 mat-drawer {
+  padding-top: $toolbar-height;
+  position: fixed;
+  top: 0;
   width: 200px;
 }
 
 mat-drawer-content {
+  padding-top: $toolbar-height;
   padding-left: 30px;
   padding-bottom: 50px;
 }
