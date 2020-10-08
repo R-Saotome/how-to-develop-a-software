@@ -1,36 +1,38 @@
-<mat-card>
-  <mat-card-header>
-    <img
-      mat-card-avatar
-      class="profile-img"
-      src="
+<div class="detail-container">
+  <mat-card>
+    <mat-card-header>
+      <img
+        mat-card-avatar
+        class="profile-img"
+        src="
         https://i.dailymail.co.uk/i/pix/2009/07/16/article-0-05BCDC9F000005DC-647_468x609.jpg
       "
-    />
+      />
 
-    <div class="basic-info-area">
-      <mat-card-title>株式会社シノブ</mat-card-title>
-      <mat-card-subtitle>
-        <div id="field">飲食業界</div>
-        <div id="postal-code">000-0000</div>
-        <div id="address">東京都渋谷区恵比寿1-1-1　恵比寿ビルディング2階</div>
-        <div id="tel">03-0000-0000</div>
-        <div id="fax">03-0000-0008</div>
-        <div id="url">https://www.shinobi.example</div>
-      </mat-card-subtitle>
-    </div>
-  </mat-card-header>
+      <div class="basic-info-area">
+        <mat-card-title>株式会社シノブ</mat-card-title>
+        <mat-card-subtitle>
+          <div id="field">飲食業界</div>
+          <div id="postal-code">000-0000</div>
+          <div id="address">東京都渋谷区恵比寿1-1-1　恵比寿ビルディング2階</div>
+          <div id="tel">03-0000-0000</div>
+          <div id="fax">03-0000-0008</div>
+          <div id="url">https://www.shinobi.example</div>
+        </mat-card-subtitle>
+      </div>
+    </mat-card-header>
 
-  <mat-card-content>
-    <mat-tab-group animationDuration="0ms">
-      <mat-tab label="First">Content 1</mat-tab>
-      <mat-tab label="Second">Content 2</mat-tab>
-      <mat-tab label="Third">Content 3</mat-tab>
-    </mat-tab-group>
-  </mat-card-content>
-</mat-card>
-<div class="fab-container">
-  <button mat-fab color="primary" (click)="onEdit()">
-    <mat-icon>edit</mat-icon>
-  </button>
+    <mat-card-content>
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="First">Content 1</mat-tab>
+        <mat-tab label="Second">Content 2</mat-tab>
+        <mat-tab label="Third">Content 3</mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  <div class="fab-container">
+    <button mat-fab color="primary" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
 </div>
