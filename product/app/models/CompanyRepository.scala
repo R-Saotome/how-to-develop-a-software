@@ -48,12 +48,12 @@ class CompanyRepository @Inject()(db: Database)(implicit ec: ExecutionContext) {
         }', '${company.tel.getOrElse("")}', '${company.fax.getOrElse("")}', '${
           company.email
             .getOrElse("")
-        }', '${company.url.getOrElse("")}', '${
+        }', '${company.url.getOrElse("")}', ${
           company.correspondence match {
             case Some(x) => x.accountId.getOrElse(null)
             case None => null
           }
-        }')
+        })
       """
       ).executeInsert()
     }
