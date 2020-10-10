@@ -8,6 +8,11 @@ const routes: Routes = [
       import('./pages/company/company.module').then((c) => c.CompanyModule),
   },
   {
+    path: 'schedules',
+    loadChildren: () =>
+      import('./pages/schedule/schedule.module').then((m) => m.ScheduleModule),
+  },
+  {
     path: '**',
     redirectTo: 'companies',
     pathMatch: 'full',
