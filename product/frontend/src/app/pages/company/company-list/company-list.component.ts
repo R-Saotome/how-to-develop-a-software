@@ -10,19 +10,28 @@ import { CompanyService } from 'src/app/services/company/company.service';
 })
 export class CompanyListComponent implements OnInit {
   columns: string[] = [
+    'id',
     'name',
     'field',
-    'postal_code',
     'address',
     'tel',
     'fax',
+    'email',
     'url',
   ];
   data: Company[];
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private ar: ActivatedRoute,
+    private companyService: CompanyService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.companyService
+      .getAll()
+      .subscribe((companies: Company[]) => (this.data = companies));
+  }
 
   onShowDetail(id) {
     this.router.navigate([id], { relativeTo: this.ar });
