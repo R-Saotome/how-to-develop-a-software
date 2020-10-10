@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ScheduleListComponent } from './schedule-list/schedule-list.component';
+import { ScheduleComponent } from './schedule.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ScheduleListComponent,
+    component: ScheduleComponent,
   },
 ];
 
