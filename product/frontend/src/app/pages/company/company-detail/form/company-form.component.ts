@@ -6,11 +6,11 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss'],
+  selector: 'app-company-form',
+  templateUrl: './company-form.component.html',
+  styleUrls: ['./company-form.component.scss'],
 })
-export class FormComponent implements OnInit, OnDestroy {
+export class CompanyFormComponent implements OnInit, OnDestroy {
   companyForm: FormGroup;
   isEditMode = false;
 

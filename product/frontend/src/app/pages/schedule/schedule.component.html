@@ -1,0 +1,12 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawer class="sidenav-content" mode="side" position="end">
+    <app-schedule-form></app-schedule-form>
+  </mat-drawer>
+
+  <div class="main-content">
+    <app-calendar></app-calendar>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div>
+</mat-drawer-container>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ScheduleListComponent } from './schedule-list/schedule-list.component';
 
 const routes: Routes = [
   {

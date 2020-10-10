@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
-import { FormComponent } from './company-detail/form/form.component';
+import { CompanyFormComponent } from './company-detail/form/company-form.component';
 import { CompanyListComponent } from './company-list/company-list.component';
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: FormComponent,
+    component: CompanyFormComponent,
   },
   {
     path: ':id',
@@ -22,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'edit',
-        component: FormComponent,
+        component: CompanyFormComponent,
       },
     ],
   },
