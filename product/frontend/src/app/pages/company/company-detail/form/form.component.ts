@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-form',
@@ -17,16 +18,18 @@ export class FormComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private ar: ActivatedRoute,
-    fb: FormBuilder
+    fb: FormBuilder,
+    private companyService: CompanyService
   ) {
     this.companyForm = fb.group({
-      id: [''],
+      id: [undefined],
       name: ['', Validators.required],
       field: [''],
       postalCode: [''],
       address: [''],
       tel: [''],
       fax: [''],
+      email: [''],
       url: [''],
     });
   }
@@ -44,7 +47,17 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 
-  onSubmit(value) {}
+  onSubmit(value) {
+    if (value) {
+      const company = value;
+      this.companyService.add(company).subscribe(
+        (company: object) => {
+          this.router.navigate(['.'], { relativeTo: this.ar.parent });
+        },
+        (error) => console.log(error)
+      );
+    }
+  }
 
   onCancel() {
     this.router.navigate(['.'], { relativeTo: this.ar.parent });
