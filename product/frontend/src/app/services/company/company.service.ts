@@ -11,12 +11,20 @@ const COMPANY_SUFFIX = 'companies';
   providedIn: 'root',
 })
 export class CompanyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.fetch();
+  }
 
-  getAll(): Observable<any> {
-    return this.http
+  companyList$: Observable<Company[]>;
+
+  fetch(): void {
+    this.companyList$ = this.http
       .get(`${environment.BASE_API_URL}/${COMPANY_SUFFIX}`)
       .pipe(map((d: any) => d.data));
+  }
+
+  getAll(): Observable<Company[]> {
+    return this.companyList$;
   }
 
   getById(id: any) {}
