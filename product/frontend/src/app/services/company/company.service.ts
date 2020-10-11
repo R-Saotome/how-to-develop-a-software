@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
+import { map, single } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Company } from 'src/app/interface/company.interface';
 
@@ -37,6 +37,13 @@ export class CompanyService {
   add(company: Company) {
     return this.http.post(
       `${environment.BASE_API_URL}/${COMPANY_SUFFIX}`,
+      company
+    );
+  }
+
+  update(company: Company) {
+    return this.http.put(
+      `${environment.BASE_API_URL}/${COMPANY_SUFFIX}/${company.id}`,
       company
     );
   }

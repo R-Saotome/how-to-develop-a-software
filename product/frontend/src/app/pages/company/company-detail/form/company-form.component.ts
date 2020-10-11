@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { Company } from 'src/app/interface/company.interface';
 import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class CompanyFormComponent implements OnInit, OnDestroy {
       id: [undefined],
       name: ['', Validators.required],
       field: [''],
-      postalCode: [''],
+      // postalCode: [''],
       address: [''],
       tel: [''],
       fax: [''],
@@ -38,10 +39,9 @@ export class CompanyFormComponent implements OnInit, OnDestroy {
     const id = this.ar.snapshot.paramMap.get('id');
     if (id) {
       this.isEditMode = true;
-      // TODO Fetch a company data by ID
-      // this.https.get('[url]').subscribe((company: object) => {
-      //   this.companyForm.setValue(company);
-      // });
+      this.companyService.getById(id).subscribe((company) => {
+        this.companyForm.setValue(company[0]);
+      });
     }
   }
 
@@ -49,13 +49,21 @@ export class CompanyFormComponent implements OnInit, OnDestroy {
 
   onSubmit(value) {
     if (value) {
-      const company = value;
-      this.companyService.add(company).subscribe(
-        (company: object) => {
-          this.router.navigate(['.'], { relativeTo: this.ar.parent });
-        },
-        (error) => console.log(error)
-      );
+      const company: Company = value;
+      if (this.isEditMode) {
+        this.companyService
+          .update(company)
+          .subscribe(() =>
+            this.router.navigate(['.'], { relativeTo: this.ar.parent })
+          );
+      } else {
+        this.companyService.add(company).subscribe(
+          (company: object) => {
+            this.router.navigate(['.'], { relativeTo: this.ar.parent });
+          },
+          (error) => console.log(error)
+        );
+      }
     }
   }
 
