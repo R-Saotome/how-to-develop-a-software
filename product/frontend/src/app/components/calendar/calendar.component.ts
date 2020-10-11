@@ -1,5 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 
 @Component({
   selector: 'app-calendar',
@@ -15,19 +18,30 @@ export class CalendarComponent implements OnInit {
     height: '80vh',
     dateClick: this.handleDateClick.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    events: [
-      {
-        title: 'event 1',
-        start: '2020-09-29T00:00:00.000+09:00',
-        end: '2020-09-29T12:00:00.000+09:00',
-        allDay: true,
-      },
-      { title: 'event 2', date: '2019-04-02' },
-    ],
+    events: [],
   };
 
-  constructor() {}
-  ngOnInit(): void {}
+  constructor(private scheduleService: ScheduleService) {}
+  ngOnInit(): void {
+    this.scheduleService
+      .getAll()
+      .pipe(
+        map((data) =>
+          data.map((s) => {
+            return {
+              id: s.id,
+              title: s.title,
+              start: s.start_date,
+              end: s.end_date,
+              allDay: s.is_all_day,
+            };
+          })
+        )
+      )
+      .subscribe((data) => {
+        this.calendarOptions.events = data;
+      });
+  }
 
   handleDateClick(arg) {
     alert('date click! ' + arg.dateStr);
