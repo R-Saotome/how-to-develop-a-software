@@ -27,7 +27,12 @@ export class CompanyService {
     return this.companyList$;
   }
 
-  getById(id: any) {}
+  getById(id: any) {
+    return this.companyList$.pipe(
+      map((d) => d.filter((c) => c.id === Number(id))),
+      single()
+    );
+  }
 
   add(company: Company) {
     return this.http.post(

@@ -10,15 +10,15 @@
       />
 
       <div class="basic-info-area">
-        <mat-card-title>株式会社シノブ</mat-card-title>
+        <mat-card-title>{{ company?.name }}</mat-card-title>
         <mat-card-subtitle>
-          <div id="field">飲食業界</div>
+          <div id="field">{{ company.field }}</div>
           <!-- <div id="postal-code">000-0000</div> -->
-          <div id="address">東京都渋谷区恵比寿1-1-1　恵比寿ビルディング2階</div>
-          <div id="tel">03-0000-0000</div>
-          <div id="fax">03-0000-0008</div>
-          <div id="email">shinobu@example.com</div>
-          <div id="url">https://www.shinobi.example</div>
+          <div id="address">{{ company.address }}</div>
+          <div id="tel">{{ company.tel }}</div>
+          <div id="fax">{{ company.fax }}</div>
+          <div id="email">{{ company.email }}</div>
+          <div id="url">{{ company.url }}</div>
         </mat-card-subtitle>
       </div>
     </mat-card-header>
