@@ -11,7 +11,9 @@ const SCHEDULE_SUFFIX = 'schedules';
   providedIn: 'root',
 })
 export class ScheduleService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.fetch();
+  }
 
   scheduleList$: Observable<Schedule[]>;
 
