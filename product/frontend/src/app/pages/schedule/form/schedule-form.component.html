@@ -1,0 +1,74 @@
+<mat-card>
+  <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit(scheduleForm.value)">
+    <mat-card-content>
+      <div class="basic-info-area">
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-label>件名</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>終日</mat-label>
+          <input matInput formControlName="is_all_day" />
+        </mat-form-field>
+      </div>
+      <!-- <div>
+              <mat-form-field appearance="standard">
+                <mat-label>郵便番号</mat-label>
+                <input matInput formControlName="postalCode" />
+              </mat-form-field>
+            </div> -->
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>日時</mat-label>
+          <input matInput formControlName="start_daty" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>電話番号</mat-label>
+          <input matInput formControlName="end_date" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Note</mat-label>
+          <input matInput formControlName="note" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>参加者</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="action-button-area">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="scheduleForm.invalid"
+      >
+        OK
+      </button>
+      <button mat-raised-button (click)="onCancel()" type="button">
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onDelete()"
+        type="button"
+        *ngIf="isEditMode"
+      >
+        Delete
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>
