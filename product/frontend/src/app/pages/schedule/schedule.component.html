@@ -4,9 +4,9 @@
   </mat-drawer>
 
   <div class="main-content">
-    <app-calendar></app-calendar>
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
+    <app-calendar
+      (eventClicked)="onEdit($event)"
+      (dateClicked)="onCreateNew($event)"
+    ></app-calendar>
   </div>
 </mat-drawer-container>

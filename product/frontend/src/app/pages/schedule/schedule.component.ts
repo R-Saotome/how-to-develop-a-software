@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-schedule',
@@ -6,7 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schedule.component.scss'],
 })
 export class ScheduleComponent implements OnInit {
+  @ViewChild('drawer') drawer;
   constructor() {}
 
   ngOnInit(): void {}
+
+  onCreateNew(date) {
+    this.drawer.open();
+  }
+
+  onEdit(id) {
+    this.drawer.open();
+  }
 }
