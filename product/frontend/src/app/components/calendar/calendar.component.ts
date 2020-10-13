@@ -44,12 +44,10 @@ export class CalendarComponent implements OnInit {
   }
 
   handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr);
     this.dateClicked.emit(arg.dateStr);
   }
 
   handleEventClick(arg) {
-    alert('date click! ' + arg.event.id);
     this.eventClicked.emit(arg.event.id);
   }
 }
