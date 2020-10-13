@@ -37,7 +37,33 @@ export class ScheduleFormComponent implements OnInit {
       members: [[]],
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.scheduleService.searchResults$.subscribe((schedules) => {
+      const s = schedules[0];
+      s.start = {
+        date: new Date(s.start_date).toLocaleDateString(),
+        time: new Date(s.start_date).toLocaleTimeString('default', {
+          hour: 'numeric',
+          minute: 'numeric',
+        }),
+      };
+      s.end = {
+        date: new Date(s.end_date).toLocaleDateString(),
+        time: new Date(s.end_date).toLocaleTimeString('default', {
+          hour: 'numeric',
+          minute: 'numeric',
+        }),
+      };
+      delete s.start_date;
+      delete s.end_date;
+
+      this.scheduleForm.setValue(s);
+      if (s.is_all_day) {
+        this.scheduleForm.get('start').disable();
+        this.scheduleForm.get('end').disable();
+      }
+    });
+  }
 
   onToggleIsAllDay() {
     if (this.scheduleForm.value.is_all_day) {

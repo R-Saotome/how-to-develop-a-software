@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 
 @Component({
   selector: 'app-schedule',
@@ -7,7 +8,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class ScheduleComponent implements OnInit {
   @ViewChild('drawer') drawer;
-  constructor() {}
+  constructor(private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {}
 
@@ -17,5 +18,6 @@ export class ScheduleComponent implements OnInit {
 
   onEdit(id) {
     this.drawer.open();
+    this.scheduleService.id$.next(id);
   }
 }
