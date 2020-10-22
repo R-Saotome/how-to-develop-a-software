@@ -19,7 +19,7 @@ object SimpleUser {
       get[Option[String]]("user.last_name") map {
       case id ~ firstName ~ lastName => {
         firstName -> lastName match {
-          case Some(x) -> Some(y) => Some(SimpleUser(id, x, y))
+          case Some(x) -> Some(y) => Some(SimpleUser(id, x + y))
           case _ -> _ => None
         }
       }
@@ -36,5 +36,5 @@ case class User(accountId: Option[Long] = None,
 }
 
 
-case class SimpleUser(accountId: Option[Long] = None, firstName: String, lastName: String)
+case class SimpleUser(accountId: Option[Long] = None, name: String)
 
