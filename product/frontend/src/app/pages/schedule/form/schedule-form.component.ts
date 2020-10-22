@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 import { Schedule } from 'src/app/interface/schedule.interface';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 
@@ -10,6 +11,8 @@ import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 })
 export class ScheduleFormComponent implements OnInit {
   scheduleForm: FormGroup;
+  scheduleSubscription: Subscription;
+  isEditMode;
 
   constructor(fb: FormBuilder, private scheduleService: ScheduleService) {
     this.scheduleForm = fb.group({
@@ -30,39 +33,51 @@ export class ScheduleFormComponent implements OnInit {
         },
         Validators.required
       ),
-      note: [''],
-      company: [''],
-      person: [''],
-      opportunity: [''],
+      note: [undefined],
+      company: fb.group({
+        id: [undefined],
+        name: [''],
+      }),
+      person: fb.group({
+        id: [undefined],
+        name: [''],
+      }),
+      opportunity: fb.group({
+        id: [undefined],
+        name: [''],
+      }),
       members: [[]],
     });
   }
   ngOnInit(): void {
-    this.scheduleService.searchResults$.subscribe((schedules) => {
-      const s = schedules[0];
-      s.start = {
-        date: new Date(s.start_date).toLocaleDateString(),
-        time: new Date(s.start_date).toLocaleTimeString('default', {
-          hour: 'numeric',
-          minute: 'numeric',
-        }),
-      };
-      s.end = {
-        date: new Date(s.end_date).toLocaleDateString(),
-        time: new Date(s.end_date).toLocaleTimeString('default', {
-          hour: 'numeric',
-          minute: 'numeric',
-        }),
-      };
-      delete s.start_date;
-      delete s.end_date;
+    this.scheduleSubscription = this.scheduleService.searchResults$.subscribe(
+      (schedules) => {
+        this.isEditMode = false;
+        const s = schedules[0];
+        s.start = {
+          date: new Date(s.start_date).toLocaleDateString(),
+          time: new Date(s.start_date).toLocaleTimeString('default', {
+            hour: 'numeric',
+            minute: 'numeric',
+          }),
+        };
+        s.end = {
+          date: new Date(s.end_date).toLocaleDateString(),
+          time: new Date(s.end_date).toLocaleTimeString('default', {
+            hour: 'numeric',
+            minute: 'numeric',
+          }),
+        };
+        delete s.start_date;
+        delete s.end_date;
 
-      this.scheduleForm.setValue(s);
-      if (s.is_all_day) {
-        this.scheduleForm.get('start').disable();
-        this.scheduleForm.get('end').disable();
+        this.scheduleForm.patchValue(s);
+        if (s.is_all_day) {
+          this.scheduleForm.get('start').disable();
+          this.scheduleForm.get('end').disable();
+        }
       }
-    });
+    );
   }
 
   onToggleIsAllDay() {
@@ -82,4 +97,8 @@ export class ScheduleFormComponent implements OnInit {
   onCancel() {}
 
   onDelete() {}
+
+  ngOnDestroy(): void {
+    this.scheduleSubscription.unsubscribe();
+  }
 }
