@@ -12,7 +12,7 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onCreateNew(date) {
+  onOpenForm(date) {
     this.drawer.open();
   }
 
