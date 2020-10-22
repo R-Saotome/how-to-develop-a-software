@@ -37,10 +37,10 @@ export class ScheduleService {
     );
   }
 
-  add(company: Schedule) {
+  add(schedule: Schedule) {
     return this.http.post(
       `${environment.BASE_API_URL}/${SCHEDULE_SUFFIX}`,
-      company
+      schedule
     );
   }
 }
