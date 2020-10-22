@@ -14,6 +14,9 @@ export class ScheduleFormComponent implements OnInit {
   scheduleSubscription: Subscription;
   isEditMode;
 
+  @Output() submitClicked = new EventEmitter<Schedule>();
+  @Output() cancelClicked = new EventEmitter();
+
   constructor(fb: FormBuilder, private scheduleService: ScheduleService) {
     this.scheduleForm = fb.group({
       id: [undefined],
@@ -92,9 +95,22 @@ export class ScheduleFormComponent implements OnInit {
     }
   }
 
-  onSubmit(value) {}
+  onSubmit(value) {
+    if (value) {
+      const startDate = value.isAllDay
+        ? new Date(value.start.date)
+        : new Date(value.start.date + ' ' + value.start.time);
+      const endDate = value.isAllDay
+        ? new Date(value.end.date)
+        : new Date(value.end.date + ' ' + value.end.time);
+      const schedule: Schedule = Object.assign(value, { startDate, endDate });
+      this.submitClicked.emit(schedule);
+    }
+  }
 
-  onCancel() {}
+  onCancel() {
+    this.cancelClicked.emit();
+  }
 
   onDelete() {}
 

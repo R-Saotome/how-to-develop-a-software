@@ -16,8 +16,16 @@ export class ScheduleComponent implements OnInit {
     this.drawer.open();
   }
 
+  onCancel() {
+    this.drawer.close();
+  }
+
   onEdit(id) {
     this.drawer.open();
     this.scheduleService.id$.next(id);
+  }
+
+  onSubmit(data) {
+    this.scheduleService.add(data);
   }
 }

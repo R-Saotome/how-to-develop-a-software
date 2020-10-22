@@ -1,6 +1,9 @@
 <mat-drawer-container autosize>
   <mat-drawer #drawer class="sidenav-content" mode="push" position="end">
-    <app-schedule-form></app-schedule-form>
+    <app-schedule-form
+      (cancelClicked)="onCancel()"
+      (submitClicked)="onSubmit($event)"
+    ></app-schedule-form>
   </mat-drawer>
 
   <div class="main-content">
