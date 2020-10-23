@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Schedule } from 'src/app/interface/schedule.interface';
+import { CompanyService } from 'src/app/services/company/company.service';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
+import { CompanyFormComponent } from '../../company/company-detail/form/company-form.component';
 
 @Component({
   selector: 'app-schedule-form',
@@ -24,14 +26,14 @@ export class ScheduleFormComponent implements OnInit {
       is_all_day: [false],
       start: fb.group(
         {
-          date: [''],
+          date: [new Date()],
           time: [''],
         },
         Validators.required
       ),
       end: fb.group(
         {
-          date: [''],
+          date: [new Date()],
           time: [''],
         },
         Validators.required
@@ -58,14 +60,14 @@ export class ScheduleFormComponent implements OnInit {
         this.isEditMode = false;
         const s = schedules[0];
         s.start = {
-          date: new Date(s.start_date).toLocaleDateString(),
+          date: new Date(s.start_date),
           time: new Date(s.start_date).toLocaleTimeString('default', {
             hour: 'numeric',
             minute: 'numeric',
           }),
         };
         s.end = {
-          date: new Date(s.end_date).toLocaleDateString(),
+          date: new Date(s.end_date),
           time: new Date(s.end_date).toLocaleTimeString('default', {
             hour: 'numeric',
             minute: 'numeric',
@@ -92,18 +94,29 @@ export class ScheduleFormComponent implements OnInit {
     } else {
       this.scheduleForm.get('start').enable();
       this.scheduleForm.get('end').enable();
-    }
+  }
   }
 
   onSubmit(value) {
     if (value) {
-      const startDate = value.isAllDay
-        ? new Date(value.start.date)
-        : new Date(value.start.date + ' ' + value.start.time);
-      const endDate = value.isAllDay
-        ? new Date(value.end.date)
-        : new Date(value.end.date + ' ' + value.end.time);
-      const schedule: Schedule = Object.assign(value, { startDate, endDate });
+      const startDate = value.is_all_day
+        ? value.start.date
+        : new Date(
+            new Date(value.start.date).getTime() +
+              value.start.time.split(':')[0] * 60 * 60 * 1000 +
+              value.start.time.split(':')[1] * 60 * 1000
+          );
+      let endDate = value.is_all_day
+        ? new Date(new Date(value.end.date).getTime() + 24 * 60 * 60 * 1000)
+        : new Date(
+            new Date(value.end.date).getTime() +
+              value.end.time.split(':')[0] * 60 * 60 * 1000 +
+              value.end.time.split(':')[1] * 60 * 1000
+          );
+      const schedule: Schedule = Object.assign(value, {
+        start_date: startDate,
+        end_date: endDate,
+      });
       this.submitClicked.emit(schedule);
     }
   }
