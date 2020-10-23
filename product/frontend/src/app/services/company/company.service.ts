@@ -15,7 +15,7 @@ export class CompanyService {
     this.fetch();
   }
 
-  companyList$: Observable<Company[] | SimpleCompany[]>;
+  companyList$: Observable<(Company | SimpleCompany)[]>;
 
   fetch(): void {
     this.companyList$ = this.http
@@ -23,7 +23,7 @@ export class CompanyService {
       .pipe(map((d: any) => d.data));
   }
 
-  getAll(): Observable<Company[]> {
+  getAll(): Observable<(Company | SimpleCompany)[]> {
     return this.companyList$;
   }
 
