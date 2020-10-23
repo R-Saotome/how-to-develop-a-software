@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Schedule } from 'src/app/interface/schedule.interface';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 
 @Component({
@@ -25,7 +26,11 @@ export class ScheduleComponent implements OnInit {
     this.scheduleService.id$.next(id);
   }
 
-  onSubmit(data) {
-    this.scheduleService.add(data);
+  onSubmit(data: Schedule) {
+    if (!data.id) {
+      this.scheduleService.add(data).subscribe(() => this.drawer.close());
+    } else {
+      this.scheduleService.update(data).subscribe(() => this.drawer.close());
+    }
   }
 }
