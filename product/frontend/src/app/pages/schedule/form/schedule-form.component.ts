@@ -78,8 +78,8 @@ export class ScheduleFormComponent implements OnInit {
 
         this.scheduleForm.patchValue(s);
         if (s.is_all_day) {
-          this.scheduleForm.get('start').disable();
-          this.scheduleForm.get('end').disable();
+          this.scheduleForm.get('start').get('time').disable();
+          this.scheduleForm.get('end').get('time').disable();
         }
       }
     );
@@ -87,13 +87,14 @@ export class ScheduleFormComponent implements OnInit {
 
   onToggleIsAllDay() {
     if (this.scheduleForm.value.is_all_day) {
-      this.scheduleForm.get('start').reset();
-      this.scheduleForm.get('end').reset();
-      this.scheduleForm.get('start').disable();
-      this.scheduleForm.get('end').disable();
+      this.scheduleForm.get('start').get('time').reset();
+      this.scheduleForm.get('end').get('time').reset();
+      this.scheduleForm.get('start').get('time').disable();
+      this.scheduleForm.get('end').get('time').disable();
     } else {
-      this.scheduleForm.get('start').enable();
-      this.scheduleForm.get('end').enable();
+      this.scheduleForm.get('start').get('time').enable();
+      this.scheduleForm.get('end').get('time').enable();
+    }
   }
   }
 
