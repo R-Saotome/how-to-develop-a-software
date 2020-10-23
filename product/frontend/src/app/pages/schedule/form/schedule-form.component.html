@@ -23,20 +23,19 @@
             matInput
             [matDatepicker]="startDatePicker"
             formControlName="date"
+            (click)="startDatePicker.open()"
           />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="startDatePicker"
-          ></mat-datepicker-toggle>
           <mat-datepicker #startDatePicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="standard">
-          <mat-select required formControlName="time">
-            <mat-option>-- None --</mat-option>
-            <mat-option value="option">Option</mat-option>
-          </mat-select>
-          <mat-label>日時</mat-label>
+          <input
+            matInput
+            type="time"
+            required
+            formControlName="time"
+            step="900"
+          />
         </mat-form-field>
       </div>
 
@@ -47,20 +46,19 @@
             matInput
             [matDatepicker]="endDatePicker"
             formControlName="date"
+            (click)="endDatePicker.open()"
           />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="endDatePicker"
-          ></mat-datepicker-toggle>
           <mat-datepicker #endDatePicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="standard">
-          <mat-select formControlName="time">
-            <mat-option>-- None --</mat-option>
-            <mat-option value="option">Option</mat-option>
-          </mat-select>
-          <mat-label>日時</mat-label>
+          <input
+            matInput
+            type="time"
+            required
+            formControlName="time"
+            step="900"
+          />
         </mat-form-field>
       </div>
 
