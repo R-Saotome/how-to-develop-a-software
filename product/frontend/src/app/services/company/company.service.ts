@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { map, single } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Company } from 'src/app/interface/company.interface';
+import { Company, SimpleCompany } from 'src/app/interface/company.interface';
 
 const COMPANY_SUFFIX = 'companies';
 
@@ -15,7 +15,7 @@ export class CompanyService {
     this.fetch();
   }
 
-  companyList$: Observable<Company[]>;
+  companyList$: Observable<Company[] | SimpleCompany[]>;
 
   fetch(): void {
     this.companyList$ = this.http

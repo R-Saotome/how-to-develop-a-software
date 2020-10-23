@@ -13,3 +13,8 @@ export interface Company {
     last_name: string;
   };
 }
+
+export interface SimpleCompany {
+  id?: any;
+  name: string;
+}

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
+import { SimpleCompany } from 'src/app/interface/company.interface';
 import { Schedule } from 'src/app/interface/schedule.interface';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
-import { CompanyFormComponent } from '../../company/company-detail/form/company-form.component';
 
 @Component({
   selector: 'app-schedule-form',
@@ -15,11 +15,36 @@ export class ScheduleFormComponent implements OnInit {
   scheduleForm: FormGroup;
   scheduleSubscription: Subscription;
   isEditMode;
+  companyList: SimpleCompany[];
+  personList: { id: any; name: string }[];
+  opportunityList: { id: any; name: string }[];
+  memberList: { account_id: any; name: string }[];
 
   @Output() submitClicked = new EventEmitter<Schedule>();
   @Output() cancelClicked = new EventEmitter();
 
-  constructor(fb: FormBuilder, private scheduleService: ScheduleService) {
+  constructor(
+    fb: FormBuilder,
+    private scheduleService: ScheduleService,
+    // TODO Implement belows.
+    // private personService: PersonService,
+    // private opportunityService: OpportunityService
+    // private userService: Userservice
+    private companyService: CompanyService
+  ) {
+    this.companyService.companyList$.subscribe(
+      (companies) => (this.companyList = companies)
+    );
+    // this.personService.companyList$.subscribe(
+    //   (persons) => (this.personList = persons)
+    // );
+    // this.opportunityService.opportunityList$.subscribe(
+    //   (opportunities) => (this.opportunityList = opportunities)
+    // );
+    // this.userService.userList$.subscribe(
+    //   (users) => (this.memberList = users)
+    // );
+
     this.scheduleForm = fb.group({
       id: [undefined],
       title: ['', Validators.required],
@@ -39,18 +64,9 @@ export class ScheduleFormComponent implements OnInit {
         Validators.required
       ),
       note: [undefined],
-      company: fb.group({
-        id: [undefined],
-        name: [''],
-      }),
-      person: fb.group({
-        id: [undefined],
-        name: [''],
-      }),
-      opportunity: fb.group({
-        id: [undefined],
-        name: [''],
-      }),
+      company: [undefined],
+      person: [undefined],
+      opportunity: [undefined],
       members: [[]],
     });
   }
@@ -96,6 +112,11 @@ export class ScheduleFormComponent implements OnInit {
       this.scheduleForm.get('end').get('time').enable();
     }
   }
+
+  compareFn(o1: any, o2: any) {
+    return o1.account_id && o2.account_id
+      ? o1.account_id === o2.account_id
+      : o1.id === o2.id;
   }
 
   onSubmit(value) {
@@ -108,7 +129,7 @@ export class ScheduleFormComponent implements OnInit {
               value.start.time.split(':')[1] * 60 * 1000
           );
       let endDate = value.is_all_day
-        ? new Date(new Date(value.end.date).getTime() + 24 * 60 * 60 * 1000)
+        ? new Date(value.end.date)
         : new Date(
             new Date(value.end.date).getTime() +
               value.end.time.split(':')[0] * 60 * 60 * 1000 +

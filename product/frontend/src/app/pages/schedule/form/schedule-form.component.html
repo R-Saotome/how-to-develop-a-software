@@ -72,43 +72,56 @@
       <div>
         <mat-form-field appearance="standard">
           <mat-label>参加者</mat-label>
-          <input matInput formControlName="members" />
+          <mat-select
+            formControlName="members"
+            multiple
+            [compareWith]="compareFn"
+          >
+            <mat-option *ngFor="let member of memberList" [value]="member">{{
+              member.name
+            }}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
-    <div>
-      <mat-form-field appearance="standard">
-        <mat-select formControlName="opportunity">
-          <mat-option>-- None --</mat-option>
-          <mat-option value="option">Option</mat-option>
-        </mat-select>
-        <mat-label>案件</mat-label>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="standard">
-        <mat-select formControlName="company">
-          <mat-option>-- None --</mat-option>
-          <mat-option value="option">Option</mat-option>
-        </mat-select>
-        <mat-label>顧客</mat-label>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="standard">
-        <mat-select formControlName="person">
-          <mat-option>-- None --</mat-option>
-          <mat-option value="option">Option</mat-option>
-        </mat-select>
-        <mat-label>名刺</mat-label>
-      </mat-form-field>
-    </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-select formControlName="opportunity" [compareWith]="compareFn">
+            <mat-option
+              *ngFor="let opportunity of opportunityList"
+              [value]="opportunity"
+              >{{ opportunity.name }}</mat-option
+            >
+          </mat-select>
+          <mat-label>案件</mat-label>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-select formControlName="company" [compareWith]="compareFn">
+            <mat-option *ngFor="let company of companyList" [value]="company">{{
+              company.name
+            }}</mat-option>
+          </mat-select>
+          <mat-label>顧客</mat-label>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-select formControlName="person" [compareWith]="compareFn">
+            <mat-option *ngFor="let person of personList" [value]="person">{{
+              person.name
+            }}</mat-option>
+          </mat-select>
+          <mat-label>名刺</mat-label>
+        </mat-form-field>
+      </div>
 
-    <div>
-      <mat-form-field appearance="standard">
-        <mat-label>Note</mat-label>
-        <textarea matInput formControlName="note"></textarea>
-      </mat-form-field>
-    </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Note</mat-label>
+          <textarea matInput formControlName="note"></textarea>
+        </mat-form-field>
+      </div>
     </mat-card-content>
 
     <mat-card-actions class="action-button-area">
