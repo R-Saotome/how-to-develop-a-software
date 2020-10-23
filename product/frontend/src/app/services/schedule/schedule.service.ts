@@ -43,4 +43,11 @@ export class ScheduleService {
       schedule
     );
   }
+
+  update(schedule: Schedule) {
+    return this.http.put(
+      `${environment.BASE_API_URL}/${SCHEDULE_SUFFIX}/${schedule.id}`,
+      schedule
+    );
+  }
 }
