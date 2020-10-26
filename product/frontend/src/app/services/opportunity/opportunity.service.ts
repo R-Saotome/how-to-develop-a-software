@@ -18,20 +18,21 @@ export class OpportunityService {
     this.fetch();
   }
 
-  personList$: Observable<(Opportunity | SimpleOpportunity)[]>;
+  opportunityList$: Observable<(Opportunity | SimpleOpportunity)[]>;
 
   fetch(): void {
-    this.personList$ = this.http
+    this.opportunityList$ = this.http
       .get(`${environment.BASE_API_URL}/${OPPORTUNITY_SUFFIX}`)
       .pipe(map((d: any) => d.data));
   }
 
   getAll(): Observable<(Opportunity | SimpleOpportunity)[]> {
-    return this.personList$;
+    return this.opportunityList$;
+  }
   }
 
   getById(id: any) {
-    return this.personList$.pipe(
+    return this.opportunityList$.pipe(
       map((d: (Opportunity | SimpleOpportunity)[]) =>
         d.filter((c) => c.id === Number(id))
       ),
