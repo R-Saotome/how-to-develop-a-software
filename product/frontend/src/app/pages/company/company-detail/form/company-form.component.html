@@ -58,6 +58,21 @@
             <input matInput formControlName="url" />
           </mat-form-field>
         </div>
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-select
+              formControlName="correspondence"
+              [compareWith]="compareFn"
+            >
+              <mat-option
+                *ngFor="let correspondence of correspondenceList"
+                [value]="correspondence"
+                >{{ correspondence.name }}</mat-option
+              >
+            </mat-select>
+            <mat-label>担当者</mat-label>
+          </mat-form-field>
+        </div>
       </div>
     </mat-card-header>
 

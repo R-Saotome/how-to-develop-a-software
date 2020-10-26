@@ -10,6 +10,8 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { OpportunityService } from 'src/app/services/opportunity/opportunity.service';
 import { PersonService } from 'src/app/services/person/person.service';
 import { ProgressService } from 'src/app/services/opportunity/progress.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { SimpleUser } from 'src/app/interface/user.interface';
 
 @Component({
   selector: 'app-opportunity-form',
@@ -23,7 +25,7 @@ export class OpportunityFormComponent implements OnInit, OnDestroy {
   progressList: { id: any; name: string }[];
   companyList: SimpleCompany[];
   personList: SimplePerson[];
-  correspondenceList: { account_id: any; name: string }[];
+  correspondenceList: SimpleUser[];
 
   constructor(
     public dialog: MatDialog,
@@ -33,20 +35,9 @@ export class OpportunityFormComponent implements OnInit, OnDestroy {
     private opportunityService: OpportunityService,
     private companyService: CompanyService,
     private personService: PersonService,
-    private progressService: ProgressService
+    private progressService: ProgressService,
+    private userService: UserService
   ) {
-    this.opportunityForm = fb.group({
-      id: [undefined],
-      name: ['', Validators.required],
-      amount: [0],
-      progress: [undefined],
-      company: [undefined],
-      person: [undefined],
-      // correspondence: [undefined],
-    });
-  }
-
-  ngOnInit(): void {
     this.companyService
       .getOptions()
       .subscribe(
@@ -60,11 +51,28 @@ export class OpportunityFormComponent implements OnInit, OnDestroy {
       .getOptions()
       .subscribe((progresses) => (this.progressList = progresses));
 
+    this.userService
+      .getOptions()
+      .subscribe(
+        (correspondences) => (this.correspondenceList = correspondences)
+      );
+    this.opportunityForm = fb.group({
+      id: [undefined],
+      name: ['', Validators.required],
+      amount: [0],
+      progress: [undefined],
+      company: [undefined],
+      person: [undefined],
+      correspondence: [undefined],
+    });
+  }
+
+  ngOnInit(): void {
     const id = this.ar.snapshot.paramMap.get('id');
     if (id) {
       this.isEditMode = true;
-      this.opportunityService.getById(id).subscribe((opportunity) => {
-        this.opportunityForm.setValue(opportunity[0]);
+      this.opportunityService.getById(id).subscribe((opportunities) => {
+        this.opportunityForm.patchValue(opportunities[0]);
         console.log(this.opportunityForm.get('person'));
       });
     }

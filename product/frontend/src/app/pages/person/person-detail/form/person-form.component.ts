@@ -7,6 +7,7 @@ import { SimpleCompany } from 'src/app/interface/company.interface';
 import { Person } from 'src/app/interface/person.interface';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { PersonService } from 'src/app/services/person/person.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-person-form',
@@ -26,12 +27,19 @@ export class PersonFormComponent implements OnInit, OnDestroy {
     private ar: ActivatedRoute,
     fb: FormBuilder,
     private personService: PersonService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private userService: UserService
   ) {
     this.companyService
       .getOptions()
       .subscribe(
         (companies: SimpleCompany[]) => (this.companyList = companies)
+      );
+
+    this.userService
+      .getOptions()
+      .subscribe(
+        (correspondences) => (this.correspondenceList = correspondences)
       );
 
     this.personForm = fb.group({
@@ -52,7 +60,7 @@ export class PersonFormComponent implements OnInit, OnDestroy {
     if (id) {
       this.isEditMode = true;
       this.personService.getById(id).subscribe((person) => {
-        this.personForm.setValue(person[0]);
+        this.personForm.patchValue(person[0]);
       });
     }
   }

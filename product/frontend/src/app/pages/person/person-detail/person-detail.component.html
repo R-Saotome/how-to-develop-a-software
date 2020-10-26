@@ -18,7 +18,8 @@
           <div id="position">{{ person.position }}</div>
           <div id="tel">{{ person.tel }}</div>
           <div id="email">{{ person.email }}</div>
-          <div id="company">{{ person.company.name }}</div>
+          <div id="company">{{ person.company?.name }}</div>
+          <div id="correspondence">{{ person.correspondence?.name }}</div>
         </mat-card-subtitle>
       </div>
     </mat-card-header>
