@@ -1,0 +1,110 @@
+<mat-card>
+  <form
+    [formGroup]="opportunityForm"
+    (ngSubmit)="onSubmit(opportunityForm.value)"
+  >
+    <mat-card-header>
+      <img
+        mat-card-avatar
+        class="profile-img"
+        src="
+        https://i.dailymail.co.uk/i/pix/2009/07/16/article-0-05BCDC9F000005DC-647_468x609.jpg
+      "
+      />
+
+      <div class="basic-info-area">
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-label>案件名</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-label>金額</mat-label>
+            <input matInput formControlName="amount" />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-select formControlName="progress" [compareWith]="compareFn">
+              <mat-option
+                *ngFor="let progress of progressList"
+                [value]="progress"
+                >{{ progress.name }}</mat-option
+              >
+            </mat-select>
+            <mat-label>進捗</mat-label>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-select formControlName="company" [compareWith]="compareFn">
+              <mat-option
+                *ngFor="let company of companyList"
+                [value]="company"
+                >{{ company.name }}</mat-option
+              >
+            </mat-select>
+            <mat-label>顧客</mat-label>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-select formControlName="person" [compareWith]="compareFn">
+              <mat-option *ngFor="let person of personList" [value]="person">
+                {{ person.name }}</mat-option
+              >
+            </mat-select>
+            <mat-label>名刺</mat-label>
+          </mat-form-field>
+        </div>
+        <!-- <div>
+          <mat-form-field appearance="standard">
+            <mat-select
+              formControlName="correspondence"
+              [compareWith]="compareFn"
+            >
+              <mat-option
+                *ngFor="let correspondence of correspondenceList"
+                [value]="correspondence"
+                >{{ correspondence.name }}</mat-option
+              >
+            </mat-select>
+            <mat-label>担当者</mat-label>
+          </mat-form-field>
+        </div> -->
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="First">Content 1</mat-tab>
+        <mat-tab label="Second">Content 2</mat-tab>
+        <mat-tab label="Third">Content 3</mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+    <mat-card-actions class="action-button-area">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="opportunityForm.invalid"
+      >
+        OK
+      </button>
+      <button mat-raised-button (click)="onCancel()" type="button">
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="onDelete()"
+        type="button"
+        *ngIf="isEditMode"
+      >
+        Delete
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

@@ -1,0 +1,37 @@
+<div class="detail-container">
+  <mat-card>
+    <mat-card-header>
+      <img
+        mat-card-avatar
+        class="profile-img"
+        src="
+        https://i.dailymail.co.uk/i/pix/2009/07/16/article-0-05BCDC9F000005DC-647_468x609.jpg
+      "
+      />
+
+      <div class="basic-info-area">
+        <mat-card-title>{{ opportunity.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <div id="amount">{{ opportunity.amount }}</div>
+          <div id="progress">{{ opportunity.progress.name }}</div>
+          <div id="company">{{ opportunity.company?.name }}</div>
+          <div id="person">{{ opportunity.person?.name }}</div>
+          <!-- <div id="correspondence">{{ opportunity.correspondence.name }}</div> -->
+        </mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="First">Content 1</mat-tab>
+        <mat-tab label="Second">Content 2</mat-tab>
+        <mat-tab label="Third">Content 3</mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  <div class="fab-container">
+    <button mat-fab color="primary" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>

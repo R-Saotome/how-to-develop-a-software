@@ -1,0 +1,10 @@
+<app-table
+  [displayedColumns]="columns"
+  [dataSource]="data"
+  (rowClicked)="onShowDetail($event)"
+></app-table>
+<div class="fab-container">
+  <button mat-fab (click)="onCreateNew()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
