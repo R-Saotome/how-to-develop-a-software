@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 import models.UserRepository
-import play.api.libs.json.Json}
+import play.api.libs.json.Json
 import play.api.mvc.{AnyContent, MessagesAbstractController, MessagesControllerComponents, Request}
 
 import scala.concurrent.{ExecutionContext, Future}
