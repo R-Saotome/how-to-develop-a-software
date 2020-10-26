@@ -1,24 +1,35 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import {
+  AfterContentInit,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { SimpleCompany } from 'src/app/interface/company.interface';
+import { SimpleOpportunity } from 'src/app/interface/opportunity.interface';
+import { SimplePerson } from 'src/app/interface/person.interface';
 import { Schedule } from 'src/app/interface/schedule.interface';
+import { SimpleUser } from 'src/app/interface/user.interface';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { OpportunityService } from 'src/app/services/opportunity/opportunity.service';
+import { PersonService } from 'src/app/services/person/person.service';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-schedule-form',
   templateUrl: './schedule-form.component.html',
   styleUrls: ['./schedule-form.component.scss'],
 })
-export class ScheduleFormComponent implements OnInit {
+export class ScheduleFormComponent implements AfterContentInit {
   scheduleForm: FormGroup;
   scheduleSubscription: Subscription;
   isEditMode;
   companyList: SimpleCompany[];
-  personList: { id: any; name: string }[];
-  opportunityList: { id: any; name: string }[];
-  memberList: { account_id: any; name: string }[];
+  personList: SimplePerson[];
+  opportunityList: SimpleOpportunity[];
+  memberList: SimpleUser[];
 
   @Output() submitClicked = new EventEmitter<Schedule>();
   @Output() cancelClicked = new EventEmitter();
@@ -26,24 +37,23 @@ export class ScheduleFormComponent implements OnInit {
   constructor(
     fb: FormBuilder,
     private scheduleService: ScheduleService,
-    // TODO Implement belows.
-    // private personService: PersonService,
-    // private opportunityService: OpportunityService
-    // private userService: Userservice
-    private companyService: CompanyService
+    private userService: UserService,
+    private companyService: CompanyService,
+    private personService: PersonService,
+    private opportunityService: OpportunityService
   ) {
-    this.companyService.companyList$.subscribe(
-      (companies) => (this.companyList = companies)
-    );
-    // this.personService.companyList$.subscribe(
-    //   (persons) => (this.personList = persons)
-    // );
-    // this.opportunityService.opportunityList$.subscribe(
-    //   (opportunities) => (this.opportunityList = opportunities)
-    // );
-    // this.userService.userList$.subscribe(
-    //   (users) => (this.memberList = users)
-    // );
+    this.companyService
+      .getOptions()
+      .subscribe((companies) => (this.companyList = companies));
+    this.personService
+      .getOptions()
+      .subscribe((persons) => (this.personList = persons));
+    this.opportunityService
+      .getOptions()
+      .subscribe((opportunities) => (this.opportunityList = opportunities));
+    this.userService
+      .getOptions()
+      .subscribe((users) => (this.memberList = users));
 
     this.scheduleForm = fb.group({
       id: [undefined],
@@ -70,9 +80,11 @@ export class ScheduleFormComponent implements OnInit {
       members: [[]],
     });
   }
-  ngOnInit(): void {
+
+  ngAfterContentInit(): void {
     this.scheduleSubscription = this.scheduleService.searchResults$.subscribe(
       (schedules) => {
+        this.scheduleForm.reset();
         this.isEditMode = false;
         const s = schedules[0];
         s.start = {
