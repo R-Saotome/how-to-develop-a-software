@@ -1,3 +1,8 @@
+import { SimpleCompany } from './company.interface';
+import { SimpleOpportunity } from './opportunity.interface';
+import { SimplePerson } from './person.interface';
+import { SimpleUser } from './user.interface';
+
 export interface Schedule {
   id?: any;
   is_all_day: boolean;
@@ -5,22 +10,8 @@ export interface Schedule {
   end_date: Date;
   title: string;
   note?: string;
-  company?: {
-    id: any;
-    name: string;
-  };
-  person?: {
-    id: any;
-    first_name: string;
-    last_name: string;
-  };
-  opportunity?: {
-    id: any;
-    name: string;
-  };
-  members: {
-    id: any;
-    first_name: string;
-    last_name: string;
-  }[];
+  company?: SimpleCompany;
+  person?: SimplePerson;
+  opportunity?: SimpleOpportunity;
+  members: SimpleUser[];
 }

@@ -1,4 +1,5 @@
 import { SimpleCompany } from './company.interface';
+import { SimpleUser } from './user.interface';
 
 export interface Person {
   id?: any;
@@ -9,11 +10,7 @@ export interface Person {
   tel?: string;
   email?: string;
   company?: SimpleCompany;
-  correspondence?: {
-    account_id: number;
-    first_name: string;
-    last_name: string;
-  };
+  correspondence?: SimpleUser;
 }
 
 export interface SimplePerson {
