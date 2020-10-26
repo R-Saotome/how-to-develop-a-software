@@ -4,7 +4,6 @@ import { environment } from '../../../environments/environment';
 import { map, single } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Person, SimplePerson } from 'src/app/interface/person.interface';
-import { SimpleCompany } from 'src/app/interface/company.interface';
 
 const PERSON_SUFFIX = 'persons';
 
@@ -26,6 +25,16 @@ export class PersonService {
 
   getAll(): Observable<(Person | SimplePerson)[]> {
     return this.personList$;
+  }
+
+  getOptions() {
+    return this.personList$.pipe(
+      map((list: Person[]) =>
+        list.map((c) => {
+          return { id: c.id, name: c.first_name + c.last_name };
+        })
+      )
+    );
   }
 
   getById(id: any) {

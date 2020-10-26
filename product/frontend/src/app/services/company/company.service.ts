@@ -27,6 +27,16 @@ export class CompanyService {
     return this.companyList$;
   }
 
+  getOptions() {
+    return this.companyList$.pipe(
+      map((list: Company[]) =>
+        list.map((c) => {
+          return { id: c.id, name: c.name };
+        })
+      )
+    );
+  }
+
   getById(id: any) {
     return this.companyList$.pipe(
       map((d) => d.filter((c) => c.id === Number(id))),

@@ -26,6 +26,16 @@ export class ProgressService {
     return this.progressList$;
   }
 
+  getOptions() {
+    return this.progressList$.pipe(
+      map((list: any[]) =>
+        list.map((c) => {
+          return { id: c.id, name: c.name };
+        })
+      )
+    );
+  }
+
   getById(id: any) {
     return this.progressList$.pipe(
       map((d: any[]) => d.filter((c) => c.id === Number(id))),

@@ -29,6 +29,15 @@ export class OpportunityService {
   getAll(): Observable<(Opportunity | SimpleOpportunity)[]> {
     return this.opportunityList$;
   }
+
+  getOptions() {
+    return this.opportunityList$.pipe(
+      map((list: Opportunity[]) =>
+        list.map((c) => {
+          return { id: c.id, name: c.name };
+        })
+      )
+    );
   }
 
   getById(id: any) {

@@ -47,16 +47,18 @@ export class OpportunityFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.companyService.companyList$.subscribe(
-      (companies: SimpleCompany[]) => (this.companyList = companies)
-    );
-    this.personService.personList$.subscribe(
-      (persons: SimplePerson[]) => (this.personList = persons)
-    );
+    this.companyService
+      .getOptions()
+      .subscribe(
+        (companies: SimpleCompany[]) => (this.companyList = companies)
+      );
+    this.personService
+      .getOptions()
+      .subscribe((persons: SimplePerson[]) => (this.personList = persons));
 
-    this.progressService.progressList$.subscribe(
-      (progresses) => (this.progressList = progresses)
-    );
+    this.progressService
+      .getOptions()
+      .subscribe((progresses) => (this.progressList = progresses));
 
     const id = this.ar.snapshot.paramMap.get('id');
     if (id) {

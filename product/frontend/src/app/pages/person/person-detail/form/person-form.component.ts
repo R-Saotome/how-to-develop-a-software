@@ -29,7 +29,7 @@ export class PersonFormComponent implements OnInit, OnDestroy {
     private companyService: CompanyService
   ) {
     this.companyService
-      .getAll()
+      .getOptions()
       .subscribe(
         (companies: SimpleCompany[]) => (this.companyList = companies)
       );
