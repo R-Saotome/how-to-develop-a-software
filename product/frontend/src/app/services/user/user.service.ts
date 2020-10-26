@@ -39,7 +39,9 @@ export class UserService {
 
   getById(id: any) {
     return this.userList$.pipe(
-      map((d: (User | SimpleUser)[]) => d.filter((c) => c.id === Number(id))),
+      map((d: (User | SimpleUser)[]) =>
+        d.filter((c) => c.account_id === Number(id))
+      ),
       single()
     );
   }
